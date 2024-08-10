@@ -1,9 +1,14 @@
 package edu.example.springbootblog.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Article {
 
     @Id
@@ -23,19 +28,17 @@ public class Article {
         this.content = content;
     }
 
-    protected Article() {} // basic constructor
-
-
+//    protected Article() {} // basic constructor
     // Getter
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public String getTitle() {
+//        return title;
+//    }
+//
+//    public String getContent() {
+//        return content;
+//    }
 }
