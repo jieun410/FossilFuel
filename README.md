@@ -15,3 +15,7 @@
   ##
   <img width="700" alt="image" src="https://github.com/user-attachments/assets/c9d3ea77-c37b-48a8-82c0-2cfd2d457dfa">
 
+  ##
+  - OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+  - 무시해도 괜찮음 (test code 실행시 발견)
+
