@@ -14,7 +14,7 @@ public class AddArticleRequest {
     private String title;
     private String content;
 
-    private Article toEntity(){
+    public Article toEntity(){
         return Article.builder()
                 .title(title)
                 .content(content)
