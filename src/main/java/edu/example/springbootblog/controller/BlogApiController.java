@@ -57,8 +57,8 @@ public class BlogApiController {
         // 위 리턴문은, 200 OK 상태 코드와 함께 articles(리스트)를 응답 본문으로 포함하여 반환합니다.
     }
 
-    @GetMapping("/api/articles{id}")
-    public ResponseEntity<ArticleResponse> findArticle(@PathVariable Long id) {
+    @GetMapping("/api/articles/{id}") // 슬래시 하나 빼먹어서, 계속 에러
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
         Article article = blogService.findById(id);
 
         return ResponseEntity.ok().body(new ArticleResponse(article));

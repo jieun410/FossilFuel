@@ -24,7 +24,7 @@ public class BlogService {
     }
 
     // Read 1
-    public Article findById(Long id){
+    public Article findById(Long id){ // Long & long 둘 다 가능
         return blogRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("Not Found : " + id));
     }
