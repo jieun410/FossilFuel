@@ -22,3 +22,5 @@
 ## DTO 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/a036193e-3d73-4a9c-845b-41aab0b944ab">
 
+## 테스트 코드는 언제 왜 작성할까?
+
