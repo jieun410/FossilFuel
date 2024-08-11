@@ -12,10 +12,13 @@
     * 규칙 1. URL에는 동사를 쓰지말고, 자원을 표시한다. /students/1
     * 규칙 2. 동사를 쓸땐, HTTP 메서드를 사용한다. GET/articels/1, POST/articles
  
-  ##
-  <img width="700" alt="image" src="https://github.com/user-attachments/assets/c9d3ea77-c37b-48a8-82c0-2cfd2d457dfa">
+## 직렬화 
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/c9d3ea77-c37b-48a8-82c0-2cfd2d457dfa">
 
-  ##
-  - OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-  - 무시해도 괜찮음 (test code 실행시 발견)
+## 에러
+- OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+    * 무시해도 괜찮음 (test code 실행시 발견)
+
+## DTO 
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/a036193e-3d73-4a9c-845b-41aab0b944ab">
 
