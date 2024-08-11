@@ -22,4 +22,10 @@ public class BlogService {
         return blogRepository.findAll();
         //jpa 지원 메서드 파인드올 호출하여, 아티클 테이블에 저장되어 있는 모든 데이터를 조회
     }
+
+    // Read 1
+    public Article findById(Long id){
+        return blogRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Not Found : " + id));
+    }
 }
