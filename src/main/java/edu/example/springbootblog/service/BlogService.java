@@ -28,4 +28,9 @@ public class BlogService {
         return blogRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("Not Found : " + id));
     }
+
+    public void delete(Long id){
+        blogRepository.deleteById(id);
+        // 오늘 진행한 스프링과 다르게 모든 메소드가 JPA에 구현되어 있고 (우리는 그 인터페이스를 상속받은 상태)
+    }
 }

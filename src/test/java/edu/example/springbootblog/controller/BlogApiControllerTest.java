@@ -83,7 +83,7 @@ class BlogApiControllerTest {
 
     @DisplayName("findALl Articles : ")
     @Test
-    public void findALlArticles() throws Exception {
+    public void findAllArticles() throws Exception {
         final String url = "/api/articles";
         final String title = "title";
         final String content = "content";

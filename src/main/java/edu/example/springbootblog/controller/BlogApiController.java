@@ -65,6 +65,12 @@ public class BlogApiController {
         // @PathVariable get value when URL
     }
 
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
+        blogService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
 // create
 // 이 코드의 목적은 블로그 글을 작성하는 REST API 엔드포인트를 구현하는 것입니다.
