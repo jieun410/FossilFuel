@@ -28,6 +28,6 @@
 
 	- mockMvc는 Spring MockMvc 객체로, 실제 HTTP 요청을 모의하여 서버 측에서 이를 처리하는 방식을 테스트
 	- perform(delete(url, savedArticle.getId()))는 DELETE 요청을 해당 URL로 보냄
-   - 여기서 url은 "/api/articles/{id}"이며, {id} 부분은 savedArticle.getId()로 대체되어 특정 Article을 삭제하도록 요청
+        - 여기서 url은 "/api/articles/{id}"이며, {id} 부분은 savedArticle.getId()로 대체되어 특정 Article을 삭제하도록 요청
 	- andExpect(status().isOk())는 서버로부터 HTTP 200 OK 응답이 반환될 것을 기대하고, 이 응답은 삭제 요청이 성공적으로 처리되었음을 나타냄
 
