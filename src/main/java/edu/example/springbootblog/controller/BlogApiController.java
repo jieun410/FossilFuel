@@ -3,6 +3,7 @@ package edu.example.springbootblog.controller;
 import edu.example.springbootblog.domain.Article;
 import edu.example.springbootblog.dto.AddArticleRequest;
 import edu.example.springbootblog.dto.ArticleResponse;
+import edu.example.springbootblog.dto.UpdateArticleRequest;
 import edu.example.springbootblog.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @RequiredArgsConstructor
 @RestController // In Object[Http Response Body], data => Converted to JSON format
@@ -71,6 +73,13 @@ public class BlogApiController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequest request) {
+        Article updatedArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedArticle);
+    }
 }
 // create
 // 이 코드의 목적은 블로그 글을 작성하는 REST API 엔드포인트를 구현하는 것입니다.

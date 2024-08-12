@@ -2,7 +2,9 @@ package edu.example.springbootblog.service;
 
 import edu.example.springbootblog.domain.Article;
 import edu.example.springbootblog.dto.AddArticleRequest;
+import edu.example.springbootblog.dto.UpdateArticleRequest;
 import edu.example.springbootblog.repository.BlogRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,14 @@ public class BlogService {
     public void delete(Long id){
         blogRepository.deleteById(id);
         // 오늘 진행한 스프링과 다르게 모든 메소드가 JPA에 구현되어 있고 (우리는 그 인터페이스를 상속받은 상태)
+    }
+
+    @Transactional // 트랜잭션용 메서드
+    public Article update(Long id, UpdateArticleRequest request){
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Not Found : " + id));
+
+        article.update(request.getTitle(), request.getContent());
+        return article;
     }
 }

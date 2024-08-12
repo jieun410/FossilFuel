@@ -28,17 +28,8 @@ public class Article {
         this.content = content;
     }
 
-//    protected Article() {} // basic constructor
-    // Getter
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public String getContent() {
-//        return content;
-//    }
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
