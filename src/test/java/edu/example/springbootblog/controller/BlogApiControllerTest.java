@@ -3,6 +3,7 @@ package edu.example.springbootblog.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.example.springbootblog.domain.Article;
 import edu.example.springbootblog.dto.AddArticleRequest;
+import edu.example.springbootblog.dto.UpdateArticleRequest;
 import edu.example.springbootblog.repository.BlogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -147,5 +148,37 @@ class BlogApiControllerTest {
         // then
         List<Article> articles = blogRepository.findAll();
         assertThat(articles).isEmpty();
+    }
+
+    @DisplayName("updateArticle: Success Update + Transaction")
+    @Test
+    public void updateArticle() throws Exception {
+        final String url = "/api/articles/{id}";
+        final String title = "title";
+        final String content = "content";
+
+        Article CreateSampleArticle = blogRepository.save(Article.builder()
+                .title(title)
+                .content(content)
+                .build());
+
+        final String newTitle = "newTitle";
+        final String newContent = "newContent";
+
+        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(put(url, CreateSampleArticle.getId())
+                .contentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(request)));
+
+        // then
+        resultActions.andExpect(status().isOk());
+
+        Article article = blogRepository.findById(CreateSampleArticle.getId()).get();
+
+        assertThat(article.getTitle()).isEqualTo(newTitle);
+        assertThat(article.getContent()).isEqualTo(newContent);
+
     }
 }
