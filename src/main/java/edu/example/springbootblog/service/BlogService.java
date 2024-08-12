@@ -1,8 +1,8 @@
 package edu.example.springbootblog.service;
 
 import edu.example.springbootblog.domain.Article;
-import edu.example.springbootblog.dto.AddArticleRequest;
-import edu.example.springbootblog.dto.UpdateArticleRequest;
+import edu.example.springbootblog.dto.endpoint.AddArticleRequest;
+import edu.example.springbootblog.dto.endpoint.UpdateArticleRequest;
 import edu.example.springbootblog.repository.BlogRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

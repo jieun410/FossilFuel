@@ -1,4 +1,4 @@
-package edu.example.springbootblog.dto;
+package edu.example.springbootblog.dto.endpoint;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
