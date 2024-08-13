@@ -38,6 +38,9 @@
 2. 커밋: 메서드가 정상적으로 종료되면 트랜잭션이 커밋됩니다. 즉, 모든 데이터 변경이 확정되고 데이터베이스에 반영됩니다.
 3. 롤백: 메서드 실행 중 예외가 발생하면 트랜잭션이 롤백됩니다. 즉, 데이터베이스에 대한 모든 변경이 취소되고 이전 상태로 복구됩니다.
     * orElseThrow(() -> new IllegalArgumentException(“Not Found : “ + id)) : 트랜잭션 롤백, 변경사항 취소
+    * 예외처리-롤백
+    * <img width="700" alt="image" src="https://github.com/user-attachments/assets/2cea37a0-b673-486e-9215-d9ff61074af0">
+
 
 ## 템플릿엔진
 - 스프링 서버에서 데이터를 받아, HTML에 그 데이터를 넣고 보여주는 도구
