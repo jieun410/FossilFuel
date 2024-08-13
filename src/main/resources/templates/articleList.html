@@ -19,7 +19,8 @@
             <div class="card-body">
                 <h5 class="card-title" th:text="${item.title}"></h5>
                 <p class="card-text" th:text="${item.content}"></p>
-                <a href="#" class="btn btn-primary">Let's See</a> <!-- 'bth'를 'btn'으로 수정 -->
+
+                <a th:href="@{/articles/{id}(id=${item.id})}"class="btn btn-primary">Let's See</a>
             </div>
         </div>
         <br>

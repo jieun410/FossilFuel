@@ -1,11 +1,14 @@
 package edu.example.springbootblog.controller;
 
-import edu.example.springbootblog.dto.ArticleListViewResponse;
+import edu.example.springbootblog.domain.Article;
+import edu.example.springbootblog.dto.Viewpoint.ArticleListViewResponse;
+import edu.example.springbootblog.dto.Viewpoint.ArticleViewResponse;
 import edu.example.springbootblog.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -26,4 +29,11 @@ public class BlogViewController {
         return "articleList"; // == articleList.html
     }
 
+    @GetMapping("/articles/{id}")
+    public String getArticle(@PathVariable Long id, Model model) {
+      Article article = blogService.findById(id);
+      model.addAttribute("article", new ArticleViewResponse(article));
+
+      return "article";
+    }
 }
