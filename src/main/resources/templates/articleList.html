@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Article List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="p-5 mb-5 text-center bg-light">
+    <h1 class="mb-3">My Blog</h1>
+    <h4 class="mb-3">Welcome to my Blog!</h4> <!-- 필요시 '_!_' 부분을 수정 -->
+</div>
+
+<div class="container">
+    <div class="row-6" th:each="item : ${articles}"> <!--반복-->
+        <div class="card">
+            <div class="card-header" th:text="${item.id}"> <!--id 출력-->
+            </div>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${item.title}"></h5>
+                <p class="card-text" th:text="${item.content}"></p>
+                <a href="#" class="btn btn-primary">Let's See</a> <!-- 'bth'를 'btn'으로 수정 -->
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+</body>
+</html>
