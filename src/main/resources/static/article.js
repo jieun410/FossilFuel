@@ -8,7 +8,7 @@ if (deleteButton) {  // 'deletButton'을 'deleteButton'으로 수정
         })
             .then(() => {
                 alert('Delete Complete.');
-                location.replace('/articles');
+                location.replace(`/articles`);
             });
     });
 }
@@ -32,17 +32,17 @@ if (modifyButton) {
         })
             .then(() => {
                 alert('Update Complete.');
-               // location.replace('/articles/${id}'); // 잘못된 코드
+                // location.replace('/articles/${id}'); // 잘못된 코드
                 location.replace(`/articles/${id}`); // 올바른 코드
 
                 // 와 아니 이거 백틱 아니라고 ㅋㅋㅋㅋ 와 아니 2시간을 와 아니 이게 와
             });
     });
-
+}
     const createButton = document.getElementById('create-btn');
     if (createButton) {
         createButton.addEventListener('click', (event) => {
-            fetch("/api/articles", {
+            fetch(`/api/articles`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -53,8 +53,7 @@ if (modifyButton) {
                 }),
             }).then((response) => {
                 alert('Create Complete.');
-                location.replace("/articles");
+                location.replace(`/articles`);
             });
         });
     }
-}
