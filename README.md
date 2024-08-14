@@ -47,7 +47,7 @@
     * JSP, 타임리프, 프리마커
     * 템플릿 엔진으로 만들어진 결과물 -> 동적인 웹페이지
 - 자바스크립트(백틱에러)
-    * location.replace(`/articles/${id}`); <= location.replace('/articles/${id}');(에러원인)
+    * location.replace`/articles/${id}`; <= location.replace'/articles/${id}';(에러원인)
     * 2024-08-14T22:56:45.545+09:00  WARN 8055 --- [SpringBootBlog] [nio-8080-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "${id}"]
 
     * <img width="700" alt="image" src="https://github.com/user-attachments/assets/986bd28b-4d5f-4887-b019-167f57590746">
