@@ -49,4 +49,6 @@ public class BlogViewController {
         }
         return "newArticle";
     }
+
+    
 }

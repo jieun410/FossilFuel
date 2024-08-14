@@ -37,7 +37,7 @@ public class BlogService {
     }
 
     @Transactional // 트랜잭션용 메서드
-    public Article update(Long id, UpdateArticleRequest request){
+    public Article update(long id, UpdateArticleRequest request){ // 설마 이거 하나?
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Not Found : " + id));
 

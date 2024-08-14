@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Blog Article</title>
@@ -18,13 +18,12 @@
             <article>
                 <input type="hidden" id="article-id" th:value="${article.id}">
                 <header class="mb-4">
-                    <input type="text" class="form-control" placeholder="title" id="title"
+                    <input type="text" class="form-control" placeholder="Title" id="title"
                            th:value="${article.title}">
                 </header>
 
                 <section class="mb-5">
-                    <textarea class="form-control h-25" rows="10" placeholder="content"
-                              id="content" th:text="${article.content}"></textarea>
+                    <textarea class="form-control h-25" rows="10" placeholder="Content" id="content" th:text="${article.content}"></textarea>
                 </section>
 
                 <button th:if="${article.id} != null" type="button" id="modify-btn"
