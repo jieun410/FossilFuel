@@ -45,4 +45,10 @@
 ## 템플릿엔진
 - 스프링 서버에서 데이터를 받아, HTML에 그 데이터를 넣고 보여주는 도구
     * JSP, 타임리프, 프리마커
-    * 템플릿 엔진으로 만들어진 결과물 -> 동적인 웹페이지 
+    * 템플릿 엔진으로 만들어진 결과물 -> 동적인 웹페이지
+    * location.replace(`/articles/${id}`); JS 백틱 구분 location.replace('/articles/${id}');
+    * 2024-08-14T22:56:45.545+09:00  WARN 8055 --- [SpringBootBlog] [nio-8080-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "${id}"]
+
+    * <img width="700" alt="image" src="https://github.com/user-attachments/assets/986bd28b-4d5f-4887-b019-167f57590746">
+    
+
