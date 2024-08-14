@@ -1,7 +1,7 @@
 # 스프링부트bolg프로젝트
 
 ## API 
-<img width="781" alt="image" src="https://github.com/user-attachments/assets/22138c52-ec8f-4102-a47a-fbd38ebf48d4">
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/22138c52-ec8f-4102-a47a-fbd38ebf48d4">
 
 - 클라이언트와 서버의 통신 매개체
 - REST API : REST (Representational State Transfer), RESTful URL 설계
