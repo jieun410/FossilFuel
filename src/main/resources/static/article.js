@@ -38,4 +38,23 @@ if (modifyButton) {
                 // 와 아니 이거 백틱 아니라고 ㅋㅋㅋㅋ 와 아니 2시간을 와 아니 이게 와
             });
     });
+
+    const createButton = document.getElementById('create-btn');
+    if (createButton) {
+        createButton.addEventListener('click', (event) => {
+            fetch("/api/articles", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    title: document.getElementById('title').value,
+                    content: document.getElementById('content').value,
+                }),
+            }).then((response) => {
+                alert('Create Complete.');
+                location.replace("/articles");
+            });
+        });
+    }
 }
