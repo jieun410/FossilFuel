@@ -1,6 +1,8 @@
 # 스프링부트bolg프로젝트
 
 ## API 
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/22138c52-ec8f-4102-a47a-fbd38ebf48d4">
+
 - 클라이언트와 서버의 통신 매개체
 - REST API : REST (Representational State Transfer), RESTful URL 설계
     * GET /users - 모든 사용자 조회
@@ -51,5 +53,13 @@
     * <img width="700" alt="image" src="https://github.com/user-attachments/assets/986bd28b-4d5f-4887-b019-167f57590746">
     * <img width="700" alt="image" src="https://github.com/user-attachments/assets/67ec3841-1783-464c-a7e5-44e86420331b">
 
-    
+## 스프링시큐리티
+- 스프링 시큐리티는 스프링 하위 프레임워크이다.(보안을 담당하는)
+- CRSF 공격 방어, 세션 고정 공격 방어, 요청 헤더 보안처리 등 다양한 보안 옵션 제공
+    * CSRF attack : 사용자의 권한을 가지고 특정 동작을 수행하도록 유도하는 공격
+    * 세션고정 공격 : 사용자의 인증 정보를 탈취하거나 변조하는 공격
+- 핵심 : "필터를 기반으로 동작한다"
+  
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/6980dd67-50e8-423f-bf14-aac0890a83e8">
+
 
