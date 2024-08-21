@@ -5,9 +5,10 @@ import edu.example.springbootblog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@Configuration
+@RestController
 public class UserApiController {
 
     private final UserService userService;
