@@ -1,8 +1,8 @@
 package edu.example.springbootblog.controller;
 
 import edu.example.springbootblog.domain.Article;
-import edu.example.springbootblog.dto.Viewpoint.ArticleListViewResponse;
-import edu.example.springbootblog.dto.Viewpoint.ArticleViewResponse;
+import edu.example.springbootblog.dto.viewdto.ArticleListViewResponse;
+import edu.example.springbootblog.dto.viewdto.ArticleViewResponse;
 import edu.example.springbootblog.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

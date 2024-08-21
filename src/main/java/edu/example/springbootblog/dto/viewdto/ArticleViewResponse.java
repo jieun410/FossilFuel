@@ -1,4 +1,4 @@
-package edu.example.springbootblog.dto.Viewpoint;
+package edu.example.springbootblog.dto.viewdto;
 
 import edu.example.springbootblog.domain.Article;
 import lombok.Data;

@@ -1,9 +1,9 @@
 package edu.example.springbootblog.controller;
 
 import edu.example.springbootblog.domain.Article;
-import edu.example.springbootblog.dto.endpoint.AddArticleRequest;
-import edu.example.springbootblog.dto.endpoint.ArticleResponse;
-import edu.example.springbootblog.dto.endpoint.UpdateArticleRequest;
+import edu.example.springbootblog.dto.apidto.AddArticleRequest;
+import edu.example.springbootblog.dto.apidto.ArticleResponse;
+import edu.example.springbootblog.dto.apidto.UpdateArticleRequest;
 import edu.example.springbootblog.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -2,8 +2,8 @@ package edu.example.springbootblog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.example.springbootblog.domain.Article;
-import edu.example.springbootblog.dto.endpoint.AddArticleRequest;
-import edu.example.springbootblog.dto.endpoint.UpdateArticleRequest;
+import edu.example.springbootblog.dto.apidto.AddArticleRequest;
+import edu.example.springbootblog.dto.apidto.UpdateArticleRequest;
 import edu.example.springbootblog.repository.BlogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
