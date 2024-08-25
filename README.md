@@ -66,7 +66,14 @@
     * CSRF attack : 사용자의 권한을 가지고 특정 동작을 수행하도록 유도하는 공격
     * 세션고정 공격 : 사용자의 인증 정보를 탈취하거나 변조하는 공격
 - 핵심 : "필터를 기반으로 동작한다"
-  
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/6980dd67-50e8-423f-bf14-aac0890a83e8">
+
+- 스프링시큐리티컨피그 > 스프링시큐리티자동 > 컨트롤러(무의미?)
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/cdd65bce-defd-4fab-a2f4-df66300df196">
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/5a69d17c-ab88-4c83-88e4-10b2dc90bbea">
+
+
 
 
