@@ -20,6 +20,13 @@
 ## 에러
 - OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
     * 무시해도 괜찮음 (test code 실행시 발견)
+ 
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/ace4a2ad-67c5-4e63-a9ff-00dfda650e05">
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/2ad61d6c-4481-4dd6-86bf-bacff340137f">
+
+- 리다이렉트를 시켜야하는데, RestController를 붙여놔서 뷰파일을 찾는게 아니라, JOSN 형식으로 스트링 데이터를 전송시킴 
+
 
 ## DTO 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/a036193e-3d73-4a9c-845b-41aab0b944ab">
