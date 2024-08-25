@@ -36,12 +36,12 @@ public class WebSecurityConfig {
                 .defaultSuccessUrl("/articles") // 로그인 성공시 이동할 경로 지정
                 .and()
                 .logout() // 5. 로그아웃 설정
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/signup")
                 .invalidateHttpSession(true)
                 .and()
                 .csrf().disable() // 6. CSRF 보호 비활성화
                 .build();
-    }
+    }// 컨트롤러에서 백날 설정해도, 이 부분을 수정하지 않으면 아무일도 일어나지 않는다.
 
     // 7. 인증 관리자 관련한 설정
     @Bean
