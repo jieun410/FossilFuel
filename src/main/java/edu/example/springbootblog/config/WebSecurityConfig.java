@@ -36,7 +36,7 @@ public class WebSecurityConfig {
                 .defaultSuccessUrl("/articles") // 로그인 성공시 이동할 경로 지정
                 .and()
                 .logout() // 5. 로그아웃 설정
-                .logoutSuccessUrl("/signup")
+                .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
                 .and()
                 .csrf().disable() // 6. CSRF 보호 비활성화

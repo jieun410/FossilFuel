@@ -24,13 +24,13 @@ public class UserApiController {
         return  "redirect:/signup"; // 회원가입이 완료되면 로그인 페이지로 리 다이렉트
     }
 
-//    @GetMapping("/logout")
-//    public String logout(HttpServletRequest request, HttpServletResponse response) {
-//        new SecurityContextLogoutHandler().logout(request, response,
-//                SecurityContextHolder.getContext().getAuthentication());
-//
-//        return "redirect:/signup";
-//    } // 리다이렉트를 다르게 지정해도 반응하지 않는 이유는
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response,
+                SecurityContextHolder.getContext().getAuthentication());
+
+        return "redirect:/login";
+   } // 리다이렉트를 다르게 지정해도 반응하지 않는 이유는
     // 스프링 시큐리티 컨피그에서 //.logoutSuccessUrl("/login")
     // 위와 같이 지정해 놔서 그러함
     // 저쪽을 주석처리하고 이쪽을 signup으로 지정해도 반응이 없다.
