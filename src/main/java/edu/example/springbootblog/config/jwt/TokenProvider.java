@@ -65,10 +65,13 @@ public class TokenProvider {
         }catch (Exception e){ // 복호화 성공시 참을 반환하며, 복호화 과정에서 에러 발생시 유효하지 않은 토큰
             return false;
         }
-    }
+    }// 토큰이 유효한지 검증하는 메서드, 프로퍼티즈에 선언한 비밀값과 함께 토큰 복호화를 진행한다. (암호화 한 상태에선 유효한지 알 수 없음)
+
 
     // 위에서 순차적으로 토큰 생성(암호화)->유효성 검증(복호화) 진행
 
+    // 토큰을 받아, 인증 정보를 받은 객체 '어센티 케이션'을 반환한다. => 프로퍼티즈 파일에 저장한 비밀값으로 토큰을 복호화 하고 클레임을 가져오는
+    // getClaims()를 호출하여 클레임 정보를 반환받아 사용자 이메일 들어있는 토큰제목 서브와
     // 토큰 기반으로 인증 정보를 가져오는 메서드
   public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token); // 토큰 넣고 돌려서 클레임 확득
@@ -77,9 +80,9 @@ public class TokenProvider {
 
       return new UsernamePasswordAuthenticationToken
               (new org.springframework.security.core.userdetails.User(claims.getSubject()
-              , "", authorities), token, authorities);
+              , "", authorities), token, authorities); // 이게 토큰 기반으로 인증 정보를 생성해서 반환하는 부분 ?
   }
-//==========================================
+//=======================================================================================
 
   // 토큰 기반으로 유저 아이디 가져옴
   public Long getUserId(String token) {
