@@ -79,6 +79,9 @@
 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/5a69d17c-ab88-4c83-88e4-10b2dc90bbea">
 
+## 세션&토큰
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/360e5485-5399-4054-a732-2c58e9d84005">
+
 - 토큰 기반 인증
     * 사용자 인증 확인 방법 : 1. 서버 기반 인증(세션) || 2. 토큰 기반 인증 (스프링 시큐리티는 기본적으로 세션 기반 인증 제공)
     * 무상태성 : 사용자 인증 정보가 담겨 있는 토큰은 서버가 아닌 클라이언트에 있음 (세션은 서버 저장)
