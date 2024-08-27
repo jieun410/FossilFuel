@@ -96,7 +96,7 @@
     * 확장성 : 서버를 확장할 때, 상태관리에 신경을 쓸 필요가 없다. ()
     * 무결성
 
-<img width="700" alt="image" src="https://github.com/user-attachments/assets/360e5485-5399-4054-a732-2c58e9d84005">
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/7d175432-c7b6-4674-a590-cd90c43af81c">
 
 - API 서버에서는 사용자의 상태를 유지하지 않기 때문에, 사용자 정보를 세션 등으로 유지하는 방식 대신, 토큰을 가지고 요청하는 방식으로 처리
 - 즉 API 서버는 사용자의 어떠한 상태도 보관하지 않는다. (단지 전달된 토큰이 유효한지만 판단한다.)
