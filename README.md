@@ -82,8 +82,13 @@
 
 
 ## 세션&토큰
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/8bb39dd5-ab01-4df4-b28f-57698e357931">
+
 - 세션 기반 인증
-    * 일반적인 로그인 => 로그인 후 사용자는 즉각적인 효력 발휘, 원하는 작업 수행  
+    * 일반적인 로그인 => 로그인 후 사용자는 즉각적인 효력 발휘, 원하는 작업 수행
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/b4c2a06b-892b-4232-9c72-608044e75f13">
+
 - 토큰 기반 인증
     * API 서버는 데이터를 제공하기 위해서만 존재
     * 사용자 인증 확인 방법 : 1. 서버 기반 인증(세션) || 2. 토큰 기반 인증 (스프링 시큐리티는 기본적으로 세션 기반 인증 제공)
