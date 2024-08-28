@@ -107,6 +107,11 @@
       
  <img width="700" alt="image" src="https://github.com/user-attachments/assets/30a036e2-471b-42c1-9225-4f2aff8910c1">
 
+ - 토큰발급(http://localhost:8080/api/v1/token/make)
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/f30cae57-a26b-4b1d-a55f-54b20fd8fe29">
+
+
 ## API문서
 - 스웨거를 통해 API문서를 작성 할 수 있다. (자동으로)
 - implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
