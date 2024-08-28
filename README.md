@@ -107,6 +107,14 @@
       
  <img width="700" alt="image" src="https://github.com/user-attachments/assets/30a036e2-471b-42c1-9225-4f2aff8910c1">
 
+## API문서
+- 스웨거를 통해 API문서를 작성 할 수 있다. (자동으로)
+- implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+- 의존성 추가 후, 컨피그 클래스를 하나 작성 하면 끝 
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/bc76aadb-bd85-4bfa-9ba2-e0b6691cb06e">
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/92325377-c810-46f7-9b87-9a1efc771f3d">
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/c703c592-472b-47cf-a0c3-427d81e88c38">
+
 
 
 
