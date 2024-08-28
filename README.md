@@ -79,12 +79,42 @@
 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/5a69d17c-ab88-4c83-88e4-10b2dc90bbea">
 
+
+
 ## 세션&토큰
-<img width="700" alt="image" src="https://github.com/user-attachments/assets/360e5485-5399-4054-a732-2c58e9d84005">
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/8bb39dd5-ab01-4df4-b28f-57698e357931">
+
+- 세션 기반 인증
+    * 일반적인 로그인 => 로그인 후 사용자는 즉각적인 효력 발휘, 원하는 작업 수행
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/b4c2a06b-892b-4232-9c72-608044e75f13">
 
 - 토큰 기반 인증
+    * API 서버는 데이터를 제공하기 위해서만 존재
     * 사용자 인증 확인 방법 : 1. 서버 기반 인증(세션) || 2. 토큰 기반 인증 (스프링 시큐리티는 기본적으로 세션 기반 인증 제공)
     * 무상태성 : 사용자 인증 정보가 담겨 있는 토큰은 서버가 아닌 클라이언트에 있음 (세션은 서버 저장)
     * 확장성 : 서버를 확장할 때, 상태관리에 신경을 쓸 필요가 없다. ()
-    * 무결성 
+    * 무결성
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/7d175432-c7b6-4674-a590-cd90c43af81c">
+
+- API 서버에서는 사용자의 상태를 유지하지 않기 때문에, 사용자 정보를 세션 등으로 유지하는 방식 대신, 토큰을 가지고 요청하는 방식으로 처리
+- 즉 API 서버는 사용자의 어떠한 상태도 보관하지 않는다. (단지 전달된 토큰이 유효한지만 판단한다.)
+- 토큰 : JWT (JSON - Web - Token) 문자열(별도의 형식으로 만들어진(암호 알고리즘이 적용된) )
+    * JWT : 헤더-내용-서명으로 구성된다. (알고리즘-클레임(데이터)-서명(위조변조x))
+    * 단점 : 탈취되는 문제 -> 내용(payload)에 만료시간을 지정하여 피해를 최소화
+    * Access Token & Refresh Token :
+      
+ <img width="700" alt="image" src="https://github.com/user-attachments/assets/30a036e2-471b-42c1-9225-4f2aff8910c1">
+
+## API문서
+- 스웨거를 통해 API문서를 작성 할 수 있다. (자동으로)
+- implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+- 의존성 추가 후, 컨피그 클래스를 하나 작성 하면 끝 
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/bc76aadb-bd85-4bfa-9ba2-e0b6691cb06e">
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/92325377-c810-46f7-9b87-9a1efc771f3d">
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/c703c592-472b-47cf-a0c3-427d81e88c38">
+
+
+
 
