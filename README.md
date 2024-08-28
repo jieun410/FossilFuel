@@ -103,7 +103,10 @@
 - 토큰 : JWT (JSON - Web - Token) 문자열(별도의 형식으로 만들어진(암호 알고리즘이 적용된) )
     * JWT : 헤더-내용-서명으로 구성된다. (알고리즘-클레임(데이터)-서명(위조변조x))
     * 단점 : 탈취되는 문제 -> 내용(payload)에 만료시간을 지정하여 피해를 최소화
-    * Access Token & Refresh Token : 
+    * Access Token & Refresh Token :
+      
+ <img width="700" alt="image" src="https://github.com/user-attachments/assets/30a036e2-471b-42c1-9225-4f2aff8910c1">
+
 
 
 
