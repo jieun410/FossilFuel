@@ -1,5 +1,6 @@
 package edu.example.springbootblog.domain;
 
+import edu.example.springbootblog.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 
@@ -35,6 +36,14 @@ public class User implements UserDetails {
     public User(String email, String password, String auth) {
         this.email = email;
         this.password = password;
+    }
+
+    public UserDTO toUserInfoDto() {
+        return UserDTO.builder()
+                .id(getId())
+                .email(getEmail())
+                .password(getPassword())
+                .build();
     }
 
     @Override // 권한 반환 부분

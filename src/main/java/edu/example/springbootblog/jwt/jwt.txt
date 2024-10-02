@@ -1,0 +1,34 @@
+1. config/CustomSecurityConfig : 모든 시큐리티 설정 관리 및 지정
+
+2. jwt
+- jwt/JwtAuthenticationFilter : 지정한 url을 제외하고 전부 JwtAuthenticationFilter를 거침
+- jwt/JwtProperties : yml 지정한 비밀키를 객체로 가지고 와서 사용(나는 그냥 여기서 지정함 ->공개)
+- jwt/JwTokenProvider : 토큰 메소드를 담김(생성, 검증, 조회,  복호화)
+
+
+3. 회원가입은 토큰 발행이 필요없다.
+컨트롤러에서 dto 를 통해 정보를 전달, 서비스 단에서 BCryptPasswordEncoder 인코딩 : 암호화
+    리포지토리 단에서 디비에 저장시킨다.
+
+=> 로그인 시도 if 회원이 아님, failHandler
+            else 회원, successHandler -> 엑세스 토큰&리프레쉬 토큰 발행
+                                     -> 만료시 엑세스 재발급
+                                     로그아웃시 -> 토큰 삭제?
+
+
+UsernamePasswordAuthenticationFilter -> JWT를 사용하여 인증을 진행하는 커스텀 필터인 JwtAuthFilter를 생성
+    * 폼 로그인(스프링 자동) -> 제이슨 로그인시에도 "커스텀 어센티케이션 필터 사용함"
+
+JwtAuthFilter ->  1. 헤더에 담긴 accessToken을 파싱하여 유효성 검증 후,
+                  2.  accessToken으로 Authentication 객체를 생성
+                  3.  인증정보를 관리하는 SecurityContext에 넣어 인증을 완료한다.
+
+   * 제이슨 로그인 -> 토큰 생성 하고, 인증 객체까지만 생성함 (컨텍스트에 넣는게 없는데 자동인지, 에러가 안뜨는건지)
+
+
+UsernamePasswordAuthenticationFilter에서 Authentication객체를 SecurityContext에 넣는 역할을 하였다.
+해당 역할을 JwtAuthenticationFilter에 위임했다고 보면 될 것 같다. (객체를 생성하고 넣는 역할을 대신 해줘야함)
+
+
+    <실제 View를 사용해 실제 로그인 흐름을 구현 = 클라이언트 측에서 accessToken을 헤더에 넣어야함?
+
