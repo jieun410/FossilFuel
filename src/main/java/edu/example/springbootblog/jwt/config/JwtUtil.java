@@ -46,6 +46,10 @@ public class JwtUtil {
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.accessTokenExpireTime = accessTokenExpireTime;
         this.refreshTokenExpireTime = refreshTokenExpireTime;
+
+        logger.info("JWT 유틸리티 초기화 완료: accessTokenExpireTime={}, refreshTokenExpireTime={}",
+                accessTokenExpireTime, refreshTokenExpireTime);
+
     } // 생성자
     // 설정파일에서 바인딩해놓은 secret와 access_expiration_time, refresh_expiration_time을 사용
 
@@ -106,6 +110,8 @@ public class JwtUtil {
 
     // 1-2 리프레쉬 토큰 발행 :
     private String createRefreshToken(UserDTO userInfoDto, Date expirationTime) {
+        logger.debug("리프레시 토큰 생성: 사용자 이메일 = {}", userInfoDto.getEmail());
+
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject("RefreshToken")
@@ -157,6 +163,8 @@ public class JwtUtil {
         try {
             return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
         } catch (ExpiredJwtException e) {
+            logger.debug("토큰 만료됨, 만료된 토큰의 claims 반환");
+
             return e.getClaims();
         }
     }
@@ -164,6 +172,8 @@ public class JwtUtil {
     // 4.
     public Long getUserIdFromToken(String token) {
         Claims claims = parseClaims(token);
+        logger.debug("토큰에서 사용자 ID 추출: {}", claims.get("UserId"));
+
         return claims.get("UserId", Long.class);
     }
 
@@ -176,6 +186,9 @@ public class JwtUtil {
     public boolean isTokenExpired(String token) {
         Claims claims = parseClaims(token); // 토큰에서 클레임을 추출
         Date expiration = claims.getExpiration(); // 클레임에서 만료 시간 추출
-        return expiration.before(new Date()); // 현재 시간과 비교하여 만료 여부 반환
+        boolean isExpired = expiration.before(new Date());
+        logger.debug("토큰 만료 여부 확인: {}", isExpired);
+
+        return isExpired; // 현재 시간과 비교하여 만료 여부 반환
     }
 }
