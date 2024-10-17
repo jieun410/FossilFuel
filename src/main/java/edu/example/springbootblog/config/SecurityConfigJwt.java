@@ -7,11 +7,15 @@ import edu.example.springbootblog.jwt.handler.CustomAccessDeniedHandler;
 import edu.example.springbootblog.jwt.handler.CustomAuthenticationEntryPoint;
 import edu.example.springbootblog.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -31,8 +35,19 @@ public class SecurityConfigJwt {
 
     private static final String[] AUTH_WHITELIST = {
             "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**", "/", "/login", "/signup",
-            "/api/v1/auth/**", "/swagger-ui/index.html#/", "/api/v1/jwt/reissue"
+            "/api/v1/auth/**", "/swagger-ui/index.html#/", "/api/v1/jwt/reissue",
+            "/"
     };
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer(){
+        return web -> web.ignoring()
+                .requestMatchers(PathRequest
+                        .toStaticResources()
+                        .atCommonLocations()
+
+                );
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -60,10 +75,11 @@ public class SecurityConfigJwt {
         // permit, authenticated 경로 설정
         http
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // 모든 요청 허용 (추후 인증 및 인가 조정)
-//                        .requestMatchers(AUTH_WHITELIST).permitAll() // 지정한 경로는 인증 없이 접근 허용
-//                        .anyRequest().authenticated()); // 나머지 모든 경로는 인증 필요
-                );
+                        .requestMatchers(AUTH_WHITELIST).permitAll() // 지정한 경로는 인증 없이 접근 허용
+                        .requestMatchers("/", "/api/login","/login", "/js/**", "/css/**", "/img/**").permitAll()
+                        //.anyRequest().authenticated()); // 나머지 모든 경로는 인증 필요
+                        .anyRequest().permitAll());
+
 
         return http.build();
     }
@@ -77,5 +93,10 @@ public class SecurityConfigJwt {
         @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }

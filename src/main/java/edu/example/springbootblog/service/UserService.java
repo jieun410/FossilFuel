@@ -1,5 +1,6 @@
 package edu.example.springbootblog.service;
 
+import edu.example.springbootblog.domain.Role;
 import edu.example.springbootblog.domain.User;
 import edu.example.springbootblog.dto.securedto.AddUserRequest;
 import edu.example.springbootblog.repository.UserRepository;
@@ -18,6 +19,7 @@ public class UserService {
         return userRepository.save(User.builder()
                 .email(SecureDTO.getEmail())
                 .password(bCryptPasswordEncoder.encode(SecureDTO.getPassword()))
+                .role(Role.ROLE_USER)
                 .build()).getId();
         // 패스워드를 저장할 때 시큐리티를 설정하며,
         // 패스워드 인코딩용으로 등록한 빈을 사용해서 암호화한 후에 저장한다.
