@@ -18,7 +18,7 @@ import java.util.List;
 public class BlogViewController {
     private final BlogService blogService;
 
-    @GetMapping("/articles")
+    @GetMapping("/")
     public String articles(Model model) {
         List<ArticleListViewResponse> articles = blogService.findAll().stream()
                 .map(ArticleListViewResponse::new)

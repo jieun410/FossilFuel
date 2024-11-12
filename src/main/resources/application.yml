@@ -1,5 +1,0 @@
-#jwt:
-#  issuer: rlarkdals@gmail.com
-#  secret_key: study-springboot
-#
-##  토큰 발급을 위한 1. 이슈 발급자 , 2. 비밀키
