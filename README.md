@@ -27,12 +27,13 @@
 - $ cd Solo-AWS/
 - $ chmod u+x gradlew
 - $ ls -l gradlew
-- $ ./gradlew build
+- $ ./gradlew build (시간 초과 및 에러)
+- $ ./gradlew build -x test (테스트 없이 진행)
+- $ java -jar SpringBootBlog-0.0.1-SNAPSHOT.jar
 
- 
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/d74fbc3f-9eab-4016-82bc-d66479a198ea">
 
-
-
+- 접속 -> 퍼블릭 IPv4 주소 + :8080 (스프링부트 기준)
 
 
 ## 직렬화 
