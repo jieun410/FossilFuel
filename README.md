@@ -8,6 +8,7 @@
 ![AWS EC2](https://img.shields.io/badge/AWS%20EC2-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)
 
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/72151a4b-28f5-451c-b369-0f47b6aef934">
 
 
 ## 직렬화 
