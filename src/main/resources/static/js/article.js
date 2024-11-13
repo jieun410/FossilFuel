@@ -7,8 +7,8 @@ if (deleteButton) {  // 'deletButton'을 'deleteButton'으로 수정
             method: 'DELETE'
         })
             .then(() => {
-                alert('Delete Complete.');
-                location.replace(`/articles`);
+                alert('삭제 완료');
+                location.replace(`/`);
             });
     });
 }
@@ -31,7 +31,7 @@ if (modifyButton) {
             })
         })
             .then(() => {
-                alert('Update Complete.');
+                alert('수정 완료');
                 // location.replace('/articles/${id}'); // 잘못된 코드
                 location.replace(`/articles/${id}`); // 올바른 코드
 
@@ -52,8 +52,8 @@ if (modifyButton) {
                     content: document.getElementById('content').value,
                 }),
             }).then((response) => {
-                alert('Create Complete.');
-                location.replace(`/articles`);
+                alert('방명록 작성이 완료되었습니다!');
+                location.replace(`/`);
             });
         });
     }
