@@ -1,0 +1,101 @@
+/* General Body Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Background Image for the Top Section */
+.top-section {
+    background: url('/img/background.jpeg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    flex-direction: column;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
+}
+
+.top-section h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.top-section h4 {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+/* Content Section */
+.content-section {
+    padding: 60px 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: -50px;
+    z-index: 10;
+    position: relative;
+}
+
+/* Article Header Styles */
+.article-header h1 {
+    color: #007bff;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.article-header .text-muted {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Article Content Styles */
+.fs-5 {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 25px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    transition: background-color 0.3s;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .top-section h1 {
+        font-size: 2.5rem;
+    }
+    .top-section h4 {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 576px) {
+    .top-section {
+        height: 80vh;
+    }
+    .top-section h1 {
+        font-size: 2rem;
+    }
+}
