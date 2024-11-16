@@ -1,10 +1,10 @@
-package edu.example.springbootblog.controller;
+package edu.example.springbootblog.article.controller;
 
-import edu.example.springbootblog.domain.Article;
-import edu.example.springbootblog.dto.apidto.AddArticleRequest;
-import edu.example.springbootblog.dto.apidto.ArticleResponse;
-import edu.example.springbootblog.dto.apidto.UpdateArticleRequest;
-import edu.example.springbootblog.service.BlogService;
+import edu.example.springbootblog.article.domain.Article;
+import edu.example.springbootblog.article.dto.apidto.AddArticleRequest;
+import edu.example.springbootblog.article.dto.apidto.ArticleResponse;
+import edu.example.springbootblog.article.dto.apidto.UpdateArticleRequest;
+import edu.example.springbootblog.article.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

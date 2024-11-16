@@ -1,4 +1,4 @@
-package edu.example.springbootblog.dto.apidto;
+package edu.example.springbootblog.article.dto.apidto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

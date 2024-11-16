@@ -1,7 +1,7 @@
-package edu.example.springbootblog.dto.apidto;
+package edu.example.springbootblog.article.dto.apidto;
 
 
-import edu.example.springbootblog.domain.Article;
+import edu.example.springbootblog.article.domain.Article;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

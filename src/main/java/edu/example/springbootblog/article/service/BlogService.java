@@ -1,9 +1,9 @@
-package edu.example.springbootblog.service;
+package edu.example.springbootblog.article.service;
 
-import edu.example.springbootblog.domain.Article;
-import edu.example.springbootblog.dto.apidto.AddArticleRequest;
-import edu.example.springbootblog.dto.apidto.UpdateArticleRequest;
-import edu.example.springbootblog.repository.BlogRepository;
+import edu.example.springbootblog.article.domain.Article;
+import edu.example.springbootblog.article.dto.apidto.AddArticleRequest;
+import edu.example.springbootblog.article.dto.apidto.UpdateArticleRequest;
+import edu.example.springbootblog.article.repository.BlogRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

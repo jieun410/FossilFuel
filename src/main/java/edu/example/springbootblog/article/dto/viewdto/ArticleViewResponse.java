@@ -1,6 +1,6 @@
-package edu.example.springbootblog.dto.viewdto;
+package edu.example.springbootblog.article.dto.viewdto;
 
-import edu.example.springbootblog.domain.Article;
+import edu.example.springbootblog.article.domain.Article;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

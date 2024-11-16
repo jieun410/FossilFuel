@@ -1,4 +1,4 @@
-package edu.example.springbootblog.domain;
+package edu.example.springbootblog.article.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
