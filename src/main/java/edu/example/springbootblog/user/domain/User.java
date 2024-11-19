@@ -1,12 +1,17 @@
 package edu.example.springbootblog.user.domain;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 // 사용자 정보를 관리하는 엔티티 클래스
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     // 사용자 ID (자동 생성)
     @Id
@@ -60,6 +65,41 @@ public class User {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return "";
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
+
 }
 
 // 사용자 역할을 정의하는 열거형
@@ -67,3 +107,4 @@ enum Role {
     ADMIN, // 관리자
     USER   // 일반 사용자
 }
+
