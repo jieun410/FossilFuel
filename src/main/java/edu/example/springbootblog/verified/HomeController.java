@@ -28,6 +28,6 @@ public class HomeController {
         // Add the articles to the model
         model.addAttribute("articles", articles);
 
-        return "mainPageForMember";
+        return "verified/mainPageForMember";
     }
 }

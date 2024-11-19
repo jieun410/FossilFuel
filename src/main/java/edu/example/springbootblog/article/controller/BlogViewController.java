@@ -27,7 +27,7 @@ public class BlogViewController {
         // 모델 내부 메서드를 통해 값을 모델에 저장한다. (글 리스트) 반환값은 뷰파일 이름을 적어 찾으라는 뜻이다.
         // 다른 파일은, 들어오는 요청에 대한 엔드포인트를 정의한 것
 
-        return "mainPage"; // == mainPage.html
+        return "article/mainPage"; // == mainPage.html
     }
 
     @GetMapping("/articles/{id}")
@@ -35,7 +35,7 @@ public class BlogViewController {
       Article article = blogService.findById(id);
       model.addAttribute("article", new ArticleViewResponse(article));
 
-      return "articleSee";
+      return "article/articleSee";
     }
 
     @GetMapping("/new-article")
@@ -47,7 +47,7 @@ public class BlogViewController {
             Article article = blogService.findById(id);
             model.addAttribute("article", new ArticleViewResponse(article));
         }
-        return "newArticle";
+        return "article/newArticle";
     }
 
     
