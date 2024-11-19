@@ -32,8 +32,10 @@ public class SecurityConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/", "login","signup").permitAll()
-                        .anyRequest().authenticated()
+                       // .requestMatchers("/", "login","signup", "home").permitAll()
+                      //  .anyRequest().authenticated()
+                        .anyRequest().permitAll()
+                        // 추후에 조정
                 )
                 .formLogin(form -> form
                         .loginPage("/login")  // 로그인 페이지 경로 설정
