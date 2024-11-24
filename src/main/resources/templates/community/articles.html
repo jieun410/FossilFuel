@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Articles</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<header class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Community</a>
+    </div>
+</header>
+<main class="container mt-4">
+    <h1 class="text-center">게시글 목록</h1>
+    <a href="/community-articles/new" class="btn btn-primary mb-3">새 글 작성</a>
+    <ul class="list-group">
+        <th:block th:each="article : ${articles}">
+            <li class="list-group-item">
+                <h5><a th:href="@{/community-articles/{id}(id=${article.id})}" th:text="${article.title}"></a></h5>
+                <p th:text="${article.content}"></p>
+                <small th:text="${#dates.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+            </li>
+        </th:block>
+    </ul>
+</main>
+</body>
+</html>
