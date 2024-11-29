@@ -1,7 +1,7 @@
 package edu.example.springbootblog.global;
 
 
-import edu.example.springbootblog.user.service.CustomUserDetailsService;
+import edu.example.springbootblog.user.service.UserDetailService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig  {
 
-    private final CustomUserDetailsService customUserDetailsService;
+    private final UserDetailService customUserDetailsService;
 
     @Bean
     public WebSecurityCustomizer config() {
@@ -44,6 +44,8 @@ public class SecurityConfig  {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login")  // 로그아웃 성공 후 이동할 페이지
                         .invalidateHttpSession(true)  // 세션 무효화
+                        .deleteCookies("JSESSIONID") // 쿠키 삭제
+
                 )
                 .csrf(csrf -> csrf.disable())  // CSRF 보호 비활성화 (필요한 경우)
                 .exceptionHandling(exception -> exception
@@ -59,7 +61,7 @@ public class SecurityConfig  {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http,
                                                        BCryptPasswordEncoder bCryptPasswordEncoder,
-                                                       CustomUserDetailsService customUserDetailsService) throws Exception {
+                                                       UserDetailService customUserDetailsService) throws Exception {
         // HttpSecurity에서 AuthenticationManagerBuilder 가져오기
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
 

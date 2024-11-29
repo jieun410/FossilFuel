@@ -2,19 +2,72 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>화석연료 | 로그인</title>
+    <title>화석연료 로그인</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
-    <!-- Link to the External CSS File -->
-    <link rel="stylesheet" href="/css/user/login.css">
+    <style>
+        .custom-background {
+            background-color: white;
+            height: 100vh;
+        }
+
+        .card {
+            border-radius: 1rem;
+            border: none;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        label {
+            color: #333;
+        }
+
+        .form-control {
+            border: 1px solid #ced4da;
+        }
+
+        .text-center {
+            color: #333;
+        }
+
+        .social-btn {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-btn button {
+            width: 100%;
+        }
+
+    </style>
 </head>
 <body class="custom-background">
 <section class="d-flex vh-100">
     <div class="container-fluid row justify-content-center align-content-center">
         <div class="card col-lg-4 col-md-6 col-sm-8 p-5">
             <div class="card-body text-center">
-                <h2>화석연료 커뮤니티</h2>
-                <p class="text-center mt-2 mb-4">Department of Computer Software</p>
+                <h2>화석연료 로그인 </h2>
+                <p class="text-center mt-2 mb-4"> Daegu Catholic University </p>
 
                 <div class="mb-3">
                     <label class="form-label">아이디</label>
@@ -54,16 +107,13 @@
                     <a href="/find-password" class="btn btn-link">비밀번호 찾기</a>
                 </div>
 
-                <button type="button" id="back-btn"
-                        onclick="window.history.back();"
-                        class="btn btn-secondary btn-sm mt-2">이전 페이지로 돌아가기</button>
-
             </div>
         </div>
     </div>
 </section>
 
-<script src="/js/loginJson.js"></script>
+<script src="/js/login.js"></script>
+
 
 </body>
 </html>
