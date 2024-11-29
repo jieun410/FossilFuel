@@ -1,110 +1,141 @@
 package edu.example.springbootblog.user.domain;
 
-import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 
-// 사용자 정보를 관리하는 엔티티 클래스
+
 @Entity
 @Table(name = "users")
+@Getter
+@NoArgsConstructor
+
+@EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails {
 
-    // 사용자 ID (자동 생성)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    @Column(name = "id" ,updatable = false)
+    private Long id;
 
-    // 사용자 이름 (필수, 최대 길이 100자)
-    @Column(nullable = false, length = 100)
-    private String username;
-
-    // 이메일 주소 (필수, 고유)
-    @Column(nullable = false, unique = true, length = 255)
+    @Column(name = "email",nullable = false,unique = true)
     private String email;
 
-    // 비밀번호 (필수)
-    @Column(nullable = false)
+    @Column(name = "password", length = 255)
     private String password;
 
-    // 전화번호 (선택, 최대 길이 15자)
-    @Column(length = 15)
-    private String phoneNumber;
-
-    // 사용자 역할 (예: ADMIN, USER, 열거형 사용)
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private Role role;
 
-    // 계정 활성 상태 (기본값: true)
-    @Column(nullable = false)
-    private boolean isActive = true;
+    //OAuth관련키 저장
+    @Column(name="nickname",unique = true)
+    private String nickname;
 
-    // 계정 생성일
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    @Lob
+    @Column(name = "profile_image", columnDefinition = "LONGBLOB")
+    private byte[] profileImage;  // 이미지 자체 저장
 
-    // 계정 수정일
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    @Column(name = "profile_url")
+    private String profileUrl;  // 이미지 URL 저장
 
-    // Getters 및 Setters
 
-    // 엔티티가 persist 되기 전에 생성일과 수정일을 설정하는 메서드
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+
+    @Builder
+    public User(String email, String password, String nickname, byte[] profileImage, String profileUrl, Role role) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.profileImage = profileImage;
+        this.profileUrl = profileUrl;  // URL 저장(이미지 구별, 호출)
+        this.role = role;
     }
 
-    // 엔티티가 업데이트 되기 전에 수정일을 설정하는 메서드
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+    // 프로필 이미지를 Base64 문자열로 변환
+    public String getProfileImageAsBase64() {
+        if (profileImage != null) {
+            return "data:image/png;base64," + Base64.getEncoder().encodeToString(profileImage);
+        }
+        return null;
     }
-    @Override
+
+
+    // 프로필 이미지 변경 메소드 추가
+    public void setProfileImage(byte[] profileImage, String profileUrl) {
+        this.profileImage = profileImage;
+        this.profileUrl = profileUrl;
+    }
+
+    //사용자 이름 변경
+    public User update(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+
+
+    @Transactional
+    public User updatePW(String password) {
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null or empty");
+        }
+        System.out.println(password + " 4. 제발 되라");
+        this.password = password;
+        return this;
+    }
+
+
+    @Override //권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
-
-    @Override
-    public String getPassword() {
-        return "";
+        return List.of(new SimpleGrantedAuthority("user")); //사용자 이외의 권한이 없기 때문에 user권한만 담아 반환
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    //계정 만료 여부 반환
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        //만료되었는지 확인하는 로직
+        return true; //true=>만료되지 않았음
     }
 
+    //계정 잠금 여부 반환
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        //계정 잠금되었는지 확인하는 로직
+        return true; //true=>잠금되지 않았음
     }
 
+    //패스워드의 만료 여부 반환
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        //패스워드가 만료되었는지 확인하는 로직
+        return true;//ture=>만료되지 않았음
     }
 
+    //계정 사용 가능 여부 반환
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        //계정이 사용 가능한지 확인하는 로직
+        return true; //true=> 사용가능
     }
 
-}
 
-// 사용자 역할을 정의하는 열거형
-enum Role {
-    ADMIN, // 관리자
-    USER   // 일반 사용자
 }
-
