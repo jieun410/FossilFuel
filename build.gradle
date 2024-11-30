@@ -42,6 +42,8 @@ dependencies {
     // Logging
     implementation 'org.springframework.boot:spring-boot-starter-logging'
 
+    implementation 'mysql:mysql-connector-java:8.0.29'
+
 
 
     // H2 데이터베이스 의존성

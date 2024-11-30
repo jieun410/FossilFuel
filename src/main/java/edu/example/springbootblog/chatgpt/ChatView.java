@@ -8,6 +8,6 @@ public class ChatView {
 
     @GetMapping("/chatgpt")
     public String index() {
-        return "chatgpt";
+        return "chat/chatgpt";
     }
 }
