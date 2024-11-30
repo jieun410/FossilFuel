@@ -19,12 +19,12 @@ import java.util.List;
 public class BlogViewController {
     private final BlogService blogService;
 
-    @Value("${kakao.map.api.key}")
-    private String kakaoApiKey;
+//    @Value("${kakao.map.api.key}")
+//    private String kakaoApiKey;
 
     @GetMapping("/")
     public String articles(Model model) {
-        model.addAttribute("kakaoApiKey", kakaoApiKey);
+    //    model.addAttribute("kakaoApiKey", kakaoApiKey);
         List<ArticleListViewResponse> articles = blogService.findAll().stream()
                 .map(ArticleListViewResponse::new)
                 .toList();

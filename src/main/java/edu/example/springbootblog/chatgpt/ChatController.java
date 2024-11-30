@@ -27,8 +27,8 @@ public class ChatController {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 
-    @Value("${OPENAI_API_KEY}")
-    private String apiKey;
+//    @Value("${OPENAI_API_KEY}")
+//    private String apiKey;
 
     @PostMapping("/chat")
     @ResponseBody
@@ -45,7 +45,7 @@ public class ChatController {
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(apiUrl);
-            httpPost.setHeader("Authorization", "Bearer " + apiKey);
+         //   httpPost.setHeader("Authorization", "Bearer " + apiKey);
             httpPost.setHeader("Content-Type", "application/json");
 
             StringEntity entity = new StringEntity(payload.toString(), ContentType.APPLICATION_JSON);
