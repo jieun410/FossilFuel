@@ -17,7 +17,7 @@ if (createButton) {
             if (response.ok) {
                 // 로그인 성공 시
                 alert('로그인되었습니다.');
-                location.replace('/community-articles'); // 홈 페이지로 리디렉션
+                location.replace('/'); // 홈 페이지로 리디렉션
             } else {
                 // 로그인 실패 시
                 alert('로그인에 실패하였습니다: ' + response.statusText);
