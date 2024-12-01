@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>화석연료 | 방명록 글조회</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- Google Fonts for Improved Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Link to the External CSS File -->
+    <link rel="stylesheet" href="/css/blog/blogSee.css">
+</head>
+<body>
+
+<!-- Content Section for Viewing a Blog -->
+<div class="content-section container mt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <blog>
+                <input type="hidden" id="blog-id" th:value="${blog.id}">
+
+                <!-- Blog Header Section -->
+                <header class="blog-header mb-4">
+                    <h1 class="fw-bolder mb-1" th:text="${blog.title}"></h1>
+                    <div class="text-muted fst-italic mb-2" th:text="|Posted on ${#temporals.format(blog.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
+                </header>
+
+                <!-- Blog Content Section -->
+                <section class="mb-5">
+                    <p class="fs-5 mb-4" th:text="${blog.content}"></p>
+                </section>
+
+                <!-- Buttons for Update, Delete, Back, and Send -->
+                <button type="button" id="modify-btn"
+                        th:if="${blog.id != null}"
+                        th:onclick="|location.href='@{/new-blog?id={blogId}(blogId=${blog.id})}'|"
+
+
+                        class="btn btn-primary">수정</button>
+
+                <!-- Send Button (Example: Could trigger a form submission or action) -->
+                <button type="button" id="send-btn"
+                        th:onclick="|location.href='@{/}'|"
+                        class="btn btn-primary">뒤로가기</button>
+
+                <button type="button" id="delete-btn" class="btn btn-secondary">삭제</button>
+
+            </blog>
+        </div>
+    </div>
+</div>
+
+<!-- Script File -->
+<script src="/js/blog.js"></script>
+</body>
+</html>
