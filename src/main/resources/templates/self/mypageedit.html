@@ -85,7 +85,8 @@
                 <img th:src="${profileImage}" alt="Profile Image" class="profile-image" />
 
                 <!-- 프로필 이미지 변경 폼 -->
-                <form th:action="@{/templates/self/edit/updateProfileImage}" method="post" enctype="multipart/form-data" style="margin-top: 20px;">
+<!--                <form th:action="@{/templates/self/edit/updateProfileImage}" method="post" enctype="multipart/form-data" style="margin-top: 20px;">-->
+                    <form th:action="@{/self/edit/updateProfileImage}" method="post" enctype="multipart/form-data">
                     <input type="file" name="profileImage" accept="image/*" class="form-control-file">
                     <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Change Profile Image</button>
                 </form>
@@ -105,6 +106,5 @@
 
     <footer>© 2024 경로당: <a class="text-dark" href="/">경로당 홈페이지</a></footer>
 </div>
-<script src="/js/token.js"></script>
 </body>
 </html>

@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Nanum Gothic", serif;
+    min-height: 100vh;
+
+}
+.text-center{
+    font-family: "나눔고딕 ExtraBold";
+}
+body {
+    flex: 1; /* body가 flex 컨테이너의 남은 공간을 차지하도록 설정 */
+}
+.header-section {
+    background-color: #D9D9D9; /* footer와 같은 색으로 설정 */
+    color: #090909;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 뷰포트 높이 100% */
+}
+/* 콘텐츠 영역의 스타일 */
+.content {
+    width: 800px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1; /* flex 속성 추가로 콘텐츠가 페이지에서 여유 공간을 채우도록 설정 */
+    text-align: center;
+}
+
+/* 로그아웃 버튼을 오른쪽 상단에 고정 */
+
+.header-right {
+    position: absolute;
+    top: 20px;  /* 상단에서 20px */
+    right: 20px;  /* 우측에서 20px */
+    display: flex;
+    gap: 10px;  /* 버튼 사이의 간격 */
+}
+
+.logout-btn {
+    background-color: #555;  /* 버튼 배경색 */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.logout-btn:hover {
+    background-color: #777;
+}
+
+
+#article-content{
+    margin-bottom: 0px;
+}
+article section p{
+    padding-bottom: 50px;
+}
+
+#comments{
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgb(241, 241, 241);
+}
+
+
+.content {
+    text-align: center;
+}
+.list-wrapper{
+    display: flex;
+    justify-content: center; /* 화면 중앙 정렬 */
+    align-items: center;
+    margin-top: 30px;
+
+}
+.list-group {
+    width: 400px; /* 목록 크기 조정 */
+    text-align: center; /* 목록 내 텍스트 중앙 정렬 */
+}
+
+/*화살표 svg위치*/
+.bi-arrow-right {
+    margin-left: auto; /* 텍스트와 아이콘 사이의 간격 */
+
+}
+
+.list-group-item {
+    font-family: '나눔고딕';
+    justify-content: space-between;
+    padding: 10px;
+    display: flex;
+    align-items: center;  /* 수직 중앙 정렬 */
+    font-size: 16px;
+
+}
+.list-group-items{
+    padding-left: 20px;
+
+}
+.list-group-svg{
+    padding-right: 20px;
+}
+
+/*.list-group-items svg{*/
+/*    padding-left: 20px;*/
+/*}*/
+
+.list-group-item a {
+
+    text-decoration: none;
+    color: black;
+    /*flex-grow: 1;  !* 텍스트가 남은 공간을 차지하도록 설정 *!*/
+}
+
+.list-group-item a:hover {
+    text-decoration: underline;
+    color: #656565;
+}
+
+
+
+
+
+
+button {
+    font-family: '나눔고딕';
+}
+
+.btn-leave{
+    color: #f1f1f1;
+    background-color: #ff2424;
+}
+
+.table-bordered{
+    table-layout: auto; /* 각 열의 크기를 자동으로 조정 */
+    width: 100%; /* 100% 크기로 설정 */
+}
+
+.table-bordered thead{
+    font-size: 12px;
+}
+.table-bordered tbody{
+    font-size: 13px;
+}
+
+.table-bordered th, .table-bordered td {
+    text-align: center;
+    border: none;
+    vertical-align: middle;
+    padding: 8px 0px 8px 0px;
+}
+.table-bordered th {
+    border-bottom: 2px solid #dee2e6; /* 헤더 아래에만 줄 추가 */
+}
+
+.table-bordered td {
+    border-bottom: 1px solid #dee2e6; /* 각 행의 아래에만 줄 추가 */
+}
+
+
+.card-title a{
+    color: black;
+}
+
+/* 제목을 링크처럼 보이게 하고 클릭 시 밑줄 추가 */
+.card-title-link {
+    color: #090909;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+
+    display: inline-block;
+    text-align: left; /* 왼쪽 정렬 */
+
+}
+
+.card-title-link:hover {
+    text-decoration: underline;
+    color: #656565;
+}
+
+/*-----------------*/
+/* 댓글 리스트 */
+.comment-link {
+    text-decoration: none;  /* 기본 상태에서 밑줄 제거 */
+    color: black;
+
+}
+
+.comment-link:hover {
+    text-decoration: underline;  /* 호버 시 밑줄 표시 */
+}
+
+.comment-link p {
+    font-family: "나눔고딕";
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    transition: color 0.3s ease;  /* 색상 변경 애니메이션 */
+}
+
+.comment-link:hover p {
+    color: #007bff;  /* 호버 시 모든 텍스트 색상 변경 */
+}
+
+
+/*---------바닥----------*/
+footer {
+    background-color: #D9D9D9;
+    color: #575757;
+    text-align: center;
+    padding: 2rem;
+    margin-top: auto;
+    /*position: absolute;*/
+}
+
+footer a {
+    color: #f1f1f1;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #ccc;
+
+}
+
+/* Footer 스타일 */
+
+/*footer {*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100px;*/
+/*    background-color: #D9D9D9;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    text-align: center;*/
+/*    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);*/
+/*    z-index: 1000;*/
+/*}*/
+
+/*!* Footer 내부 텍스트 및 링크 스타일 *!*/
+/*#footer-senior-center {*/
+/*    font-size: 16px;*/
+/*    color: #343a40;*/
+/*    height: 100%;*/
+/*    text-align: center;*/
+/*    line-height: 100px;*/
+/*}*/
+
+/*#footer-senior-center a {*/
+/*    color: #f1f1f1;*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*#footer-senior-center a:hover {*/
+/*    text-decoration: underline;*/
+/*    color: #ccc;*/
+/*}*/

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이 페이지 작성한 댓글</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mypage.css">
+</head>
+<body>
+<div class="p-5 mb-5 bg-light header-section">
+    <div class="text-center">
+        <a  href="/" style="color: rgb(33, 37, 41);text-decoration: none">
+            <h1 class="mb-3">경로당, 함께하소</h1>
+        </a>
+        <h4 class="mb-3">작은 화면 속 우리들의 소통공간</h4>
+    </div>
+
+    <!-- 우측 상단에 로그아웃 버튼 -->
+    <div class="header-right">
+        <button type="button" class="btn btn-secondary logout-btn" id="logout-btn">로그아웃</button>
+    </div>
+
+
+</div>
+<div class="wrapper">
+    <div class="content">
+
+        <div class="container mt-5">
+            <div class="d-flex justify-content-between">
+                <!-- 이전 페이지로 돌아가기 버튼 -->
+                <button type="button" id="back-btn"
+                        onclick="window.history.back();"
+                        class="btn btn-secondary btn-sm">이전 페이지로 돌아가기</button>
+
+                <!-- 게시글 목록으로 돌아가기 버튼 -->
+                <button type="button" id="return-btn"
+                        th:onclick="|location.href='@{/articles}'; |"
+                        class="btn btn-return btn-sm">게시글 목록으로 돌아가기</button>
+            </div>
+
+            <div>
+                <h4 style="font-family:'나눔고딕 ExtraBold';margin-top: 30px;margin-bottom: 30px  "th:text="|${currentUserName}님이 작성한 댓글|"></h4>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+
+                            <th>댓글</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="comment : ${userCommentsLists}">
+                            <td style="padding: 5px 0px 5px 0px;" >
+                                <a th:href="@{/articles/{id}(id=${comment.articleId})}" class="comment-link">
+                                    <p style="color: black; font-size: 15px; font-weight: 600" th:text="${comment.commentContent}"></p> <!-- 댓글 내용 -->
+                                    <p style="color: rgb(135, 135, 135);font-weight: 400" th:text="${#temporals.format(comment.commentCreatedAt, 'yyyy-MM-dd')}"></p> <!-- 댓글 작성일 -->
+                                    <p style="color: rgb(135, 135, 135); font-weight: 500" th:text="${comment.articleTitle}"></p> <!-- 게시글 제목 -->
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    <footer>© 2024 경로당: <a class="text-dark" href="/">경로당 홈페이지</a></footer>
+</div>
+<script src="/js/token.js"></script>
+</body>
+</html>

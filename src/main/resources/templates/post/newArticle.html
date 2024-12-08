@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 등록</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- CKEditor CDN -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/notification.css">
+
+</head>
+<body data-user-id="${#authentication.name}">
+
+<div class="p-5 mb-5 bg-light header-section">
+    <div class="text-center">
+        <a  href="/" style="color: rgb(33, 37, 41);text-decoration: none">
+            <h1 class="mb-3">경로당, 함께하소</h1>
+        </a>
+        <h4 class="mb-3">작은 화면 속 우리들의 소통공간</h4>
+    </div>
+
+    <!-- 우측 상단에 로그아웃 버튼 -->
+    <div class="header-right">
+        <!-- 종 모양 알림 리스트 아이콘 -->
+        <div class="notification-icon position-relative" id="notification-icon">
+            <i class="fas fa-bell icon"></i>
+            <!-- 읽지 않은 알림 개수 표시 -->
+            <span class="badge badge-danger" id="notification-count">0</span>
+        </div>
+
+        <!-- 알람 설정 아이콘 -->
+        <div class="custom-alarm-icon" id="custom-alarm-icon">
+            <i class="fas fa-clock icon"></i>
+        </div>
+        <button type="button" class="btn btn-secondary my-page-btn" id="my-page-btn">마이페이지</button>
+        <button type="button" class="btn btn-secondary logout-btn" id="logout-btn">로그아웃</button>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div id="notification-list-popup" class="notification-list-popup d-none">
+        <div class="notification-list-header">
+            <h5>알림 리스트</h5>
+            <button type="button" id="close-notification-btn" class="close-notification-btn">&times;</button>
+        </div>
+        <!-- 사용자 지정 알림 섹션 -->
+        <h6 id="custom-alarm-section" class="notification-section-title d-none">사용자 지정 알람</h6>
+        <ul id="custom-alarm-lists" class="notification-list">
+            <!-- 사용자 지정 알림 항목이 동적으로 추가됩니다. -->
+        </ul>
+
+        <!-- 댓글 및 좋아요 알림 섹션 -->
+        <h6 id="comment-like-section" class="notification-section-title d-none">댓글 및 좋아요</h6>
+        <ul id="comment-like-list" class="notification-list">
+            <!-- 댓글 및 좋아요 알림 항목이 동적으로 추가됩니다. -->
+        </ul>
+    </div>
+
+    <!-- 커스텀 알람 리스트 팝업 -->
+    <div id="custom-alarm-list-popup" class="custom-alarm-list-popup d-none">
+        <div class="custom-alarm-list-header">
+            <h5>커스텀 알람 리스트</h5>
+            <button type="button" id="close-custom-alarm-list-btn" class="close-custom-alarm-list-btn">&times;</button>
+        </div>
+        <!-- 알림 추가 버튼 -->
+        <div class="d-flex justify-content-end mb-2">
+            <button type="button" id="add-custom-alarm-btn" class="btn btn-sm btn-success">알림 추가</button>
+        </div>
+        <!-- 사용자 지정 알람 리스트 -->
+        <ul id="custom-alarm-list" class="notification-list">
+            <!-- 사용자 지정 알람 항목이 동적으로 추가됩니다. -->
+        </ul>
+    </div>
+
+    <!-- 커스텀 알람 설정 팝업 -->
+    <div id="custom-alarm-popup" class="custom-alarm-popup d-none">
+        <div class="custom-alarm-header">
+            <h5>커스텀 알람 설정</h5>
+            <button type="button" id="close-alarm-btn" class="close-alarm-btn">&times;</button>
+        </div>
+        <div class="custom-alarm-body">
+            <label for="alarm-time">알람 시간 설정:</label>
+            <input type="time" id="alarm-time" class="form-control">
+
+            <!-- 메시지 입력 -->
+            <label for="message">알람 메시지 입력:</label>
+            <input type="text" id="message" placeholder="알람 메시지를 입력하세요" class="form-control">
+
+            <!-- 요일 선택 -->
+            <h3>요일 선택:</h3>
+            <label><input type="checkbox" name="days" value="MONDAY"> 월요일</label><br>
+            <label><input type="checkbox" name="days" value="TUESDAY"> 화요일</label><br>
+            <label><input type="checkbox" name="days" value="WEDNESDAY"> 수요일</label><br>
+            <label><input type="checkbox" name="days" value="THURSDAY"> 목요일</label><br>
+            <label><input type="checkbox" name="days" value="FRIDAY"> 금요일</label><br>
+            <label><input type="checkbox" name="days" value="SATURDAY"> 토요일</label><br>
+            <label><input type="checkbox" name="days" value="SUNDAY"> 일요일</label><br>
+
+            <!-- 알람 활성화 -->
+            <label for="alarm-active">알람 활성화:</label>
+            <input type="checkbox" id="alarm-active">
+
+            <button id="set-alarm-btn" class="btn btn-primary mt-3">알람 설정</button>
+        </div>
+    </div>
+
+    <!-- 커스텀 알람 수정 팝업 -->
+    <div id="edit-custom-alarm-popup" class="custom-alarm-popup d-none">
+        <div class="custom-alarm-header">
+            <h5>커스텀 알람 수정</h5>
+            <button type="button" id="close-edit-alarm-btn" class="close-alarm-btn">&times;</button>
+        </div>
+        <div class="custom-alarm-body">
+            <label for="edit-alarm-time">알람 시간 설정:</label>
+            <input type="time" id="edit-alarm-time" class="form-control">
+
+            <!-- 메시지 입력 -->
+            <label for="edit-message">알람 메시지 입력:</label>
+            <input type="text" id="edit-message" placeholder="알람 메시지를 입력하세요" class="form-control">
+
+            <!-- 요일 선택 -->
+            <h3>요일 선택:</h3>
+            <label><input type="checkbox" name="edit-days" value="MONDAY"> 월요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="TUESDAY"> 화요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="WEDNESDAY"> 수요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="THURSDAY"> 목요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="FRIDAY"> 금요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="SATURDAY"> 토요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="SUNDAY"> 일요일</label><br>
+
+            <!-- 알람 활성화 -->
+            <label for="edit-alarm-active">알람 활성화:</label>
+            <input type="checkbox" id="edit-alarm-active">
+
+            <button id="save-edit-alarm-btn" class="btn btn-primary mt-3">수정 저장</button>
+        </div>
+    </div>
+</div>
+    <!-- 콘텐츠 영역 -->
+    <div class="content">
+        <div class="container mt-5">
+            <div class="mb-4 text-right"> <!-- 상단에 간격을 추가 -->
+                <button type="button" id="article-return-btn"
+                        class="btn btn-return btn-sm">목록으로 돌아가기</button>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-12">
+
+                    <article>
+                        <input type="hidden" id="article-id" th:value="${article.id}">
+
+                        <header class="mb-4">
+                            <input type="text" class="form-control" placeholder="제목" id="title" th:value="${article.title}">
+                        </header>
+
+
+                        <section class="mb-5" >
+                            <textarea class="form-control h-25" rows="18" placeholder="내용" id="content" th:text="${article.content}"></textarea>
+                        </section>
+
+
+
+                        <div class="text-right">
+                            <button th:if="${article.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>
+                            <button th:if="${article.id} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">등록</button>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        © 2024 경로당:
+        <a class="text-dark" href="/">경로당 홈페이지</a>
+    </footer>
+</div>
+
+<!-- CKEditor 초기화 스크립트 -->
+<script>
+    let editorInstance;
+
+    ClassicEditor
+        .create(document.querySelector('#content'), {
+            language: 'ko', // 언어 설정
+            ckfinder: {
+                uploadUrl: '/api/upload?articleId=' + document.querySelector('#article-id').value // articleId 추가
+            }
+        })
+        .then(editor => {
+            editorInstance = editor;  // 에디터 인스턴스를 전역 변수에 저장
+            console.log('CKEditor가 초기화되었습니다.');
+        })
+        .catch(error => {
+            console.error('CKEditor 초기화 오류:', error);
+        });
+</script>
+<script src="/js/article.js"></script>
+<script src="/js/token.js"></script>
+<script src="/js/notification.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/notification.css">
+
+</head>
+<body data-user-id="${#authentication.name}">
+<div class="p-5 mb-5 bg-light header-section">
+    <div class="text-center">
+        <a  href="/" style="color: rgb(33, 37, 41);text-decoration: none">
+            <h1 class="mb-3">경로당, 함께하소</h1>
+        </a>
+        <h4 class="mb-3">작은 화면 속 우리들의 소통공간</h4>
+    </div>
+
+    <!-- 우측 상단에 로그아웃 버튼 -->
+    <div class="header-right">
+        <!-- 종 모양 알림 리스트 아이콘 -->
+        <div class="notification-icon position-relative" id="notification-icon">
+            <i class="fas fa-bell icon"></i>
+            <!-- 읽지 않은 알림 개수 표시 -->
+            <span class="badge badge-danger" id="notification-count">0</span>
+        </div>
+
+        <!-- 알람 설정 아이콘 -->
+        <div class="custom-alarm-icon" id="custom-alarm-icon">
+            <i class="fas fa-clock icon"></i>
+        </div>
+        <button type="button" class="btn btn-secondary my-page-btn" id="my-page-btn"
+                th:onclick="|location.href='@{/mypage}'|">마이페이지</button>
+        <button type="button" class="btn btn-secondary logout-btn" id="logout-btn">로그아웃</button>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div id="notification-list-popup" class="notification-list-popup d-none">
+        <div class="notification-list-header">
+            <h5>알림 리스트</h5>
+            <button type="button" id="close-notification-btn" class="close-notification-btn">&times;</button>
+        </div>
+        <!-- 사용자 지정 알림 섹션 -->
+        <h6 id="custom-alarm-section" class="notification-section-title d-none">사용자 지정 알람</h6>
+        <ul id="custom-alarm-lists" class="notification-list">
+            <!-- 사용자 지정 알림 항목이 동적으로 추가됩니다. -->
+        </ul>
+
+        <!-- 댓글 및 좋아요 알림 섹션 -->
+        <h6 id="comment-like-section" class="notification-section-title d-none">댓글 및 좋아요</h6>
+        <ul id="comment-like-list" class="notification-list">
+            <!-- 댓글 및 좋아요 알림 항목이 동적으로 추가됩니다. -->
+        </ul>
+    </div>
+
+    <!-- 커스텀 알람 리스트 팝업 -->
+    <div id="custom-alarm-list-popup" class="custom-alarm-list-popup d-none">
+        <div class="custom-alarm-list-header">
+            <h5>커스텀 알람 리스트</h5>
+            <button type="button" id="close-custom-alarm-list-btn" class="close-custom-alarm-list-btn">&times;</button>
+        </div>
+        <!-- 알림 추가 버튼 -->
+        <div class="d-flex justify-content-end mb-2">
+            <button type="button" id="add-custom-alarm-btn" class="btn btn-sm btn-success">알림 추가</button>
+        </div>
+        <!-- 사용자 지정 알람 리스트 -->
+        <ul id="custom-alarm-list" class="notification-list">
+            <!-- 사용자 지정 알람 항목이 동적으로 추가됩니다. -->
+        </ul>
+    </div>
+
+    <!-- 커스텀 알람 설정 팝업 -->
+    <div id="custom-alarm-popup" class="custom-alarm-popup d-none">
+        <div class="custom-alarm-header">
+            <h5>커스텀 알람 설정</h5>
+            <button type="button" id="close-alarm-btn" class="close-alarm-btn">&times;</button>
+        </div>
+        <div class="custom-alarm-body">
+            <label for="alarm-time">알람 시간 설정:</label>
+            <input type="time" id="alarm-time" class="form-control">
+
+            <!-- 메시지 입력 -->
+            <label for="message">알람 메시지 입력:</label>
+            <input type="text" id="message" placeholder="알람 메시지를 입력하세요" class="form-control">
+
+            <!-- 요일 선택 -->
+            <h3>요일 선택:</h3>
+            <label><input type="checkbox" name="days" value="MONDAY"> 월요일</label><br>
+            <label><input type="checkbox" name="days" value="TUESDAY"> 화요일</label><br>
+            <label><input type="checkbox" name="days" value="WEDNESDAY"> 수요일</label><br>
+            <label><input type="checkbox" name="days" value="THURSDAY"> 목요일</label><br>
+            <label><input type="checkbox" name="days" value="FRIDAY"> 금요일</label><br>
+            <label><input type="checkbox" name="days" value="SATURDAY"> 토요일</label><br>
+            <label><input type="checkbox" name="days" value="SUNDAY"> 일요일</label><br>
+
+            <!-- 알람 활성화 -->
+            <label for="alarm-active">알람 활성화:</label>
+            <input type="checkbox" id="alarm-active">
+
+            <button id="set-alarm-btn" class="btn btn-primary mt-3">알람 설정</button>
+        </div>
+    </div>
+
+    <!-- 커스텀 알람 수정 팝업 -->
+    <div id="edit-custom-alarm-popup" class="custom-alarm-popup d-none">
+        <div class="custom-alarm-header">
+            <h5>커스텀 알람 수정</h5>
+            <button type="button" id="close-edit-alarm-btn" class="close-alarm-btn">&times;</button>
+        </div>
+        <div class="custom-alarm-body">
+            <label for="edit-alarm-time">알람 시간 설정:</label>
+            <input type="time" id="edit-alarm-time" class="form-control">
+
+            <!-- 메시지 입력 -->
+            <label for="edit-message">알람 메시지 입력:</label>
+            <input type="text" id="edit-message" placeholder="알람 메시지를 입력하세요" class="form-control">
+
+            <!-- 요일 선택 -->
+            <h3>요일 선택:</h3>
+            <label><input type="checkbox" name="edit-days" value="MONDAY"> 월요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="TUESDAY"> 화요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="WEDNESDAY"> 수요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="THURSDAY"> 목요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="FRIDAY"> 금요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="SATURDAY"> 토요일</label><br>
+            <label><input type="checkbox" name="edit-days" value="SUNDAY"> 일요일</label><br>
+
+            <!-- 알람 활성화 -->
+            <label for="edit-alarm-active">알람 활성화:</label>
+            <input type="checkbox" id="edit-alarm-active">
+
+            <button id="save-edit-alarm-btn" class="btn btn-primary mt-3">수정 저장</button>
+        </div>
+    </div>
+</div>
+    <div class="content">
+        <div class="container mt-5">
+            <div class="row mb-4">
+                <!-- 좌측에 수정, 삭제 버튼 -->
+                <div class="col-lg-6 text-left">
+                    <button type="button" id="modify-btn"
+                            th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|"
+                            class="btn btn-primary btn-sm" th:if="${isArticleOwner}">수정</button>
+                    <button type="button" id="delete-btn" class="btn btn-secondary btn-sm" th:if="${isArticleOwner}">삭제</button>
+                </div>
+
+                <!-- 우측에 목록으로 돌아가기 버튼 -->
+                <div class="col-lg-6 text-right">
+                    <button type="button" id="return-btn"
+                            th:onclick="|location.href='@{/articles}'; |"
+                            class="btn btn-return btn-sm">목록으로 돌아가기</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <article>
+                        <input type="hidden" id="article-id"  th:value="${article.id}">
+                        <header class="mb-4">
+                            <h3 class="fw-bolder mb-1" style="font-family:'나눔고딕'" th:text="${article.title}"></h3>
+                            <div class="text-muted fst-italic mb-2 d-flex align-items-center">
+                                <img th:src="${profileImage}" alt="Profile Image" class="profile-image" style="margin: 0px" />
+                                <span th:text="${article.author}"style="margin-left: 10px"></span>
+                                <span th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"style="margin-left: 10px" ></span>
+                                | 조회수: <span th:text="${article.viewCount}"style="margin-left: 10px"></span>
+                            </div>
+
+                        </header>
+
+                        <section class="mb-5">
+                            <div class="fs-5 mb-4" th:utext="${article.content}"></div>
+                        </section>
+
+                        <div class="likeAndCommentCountSvg">
+
+                            <button id="like-button" class="like-button" th:value="${article.id}" th:attr="article-id=${article.id}"
+                                    th:disabled="${article.author == '탈퇴한 사용자입니다.' || #lists.contains(comments, '탈퇴한 사용자입니다.') ? true : false}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-heart not-liked" viewBox="0 0 16 16" id="like-icon">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                </svg>
+                            </button>
+                            <p>좋아요 <span id="like-count" th:text="${likeCount}">0</span></p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16" style="transform: scaleX(-1);">
+                                <path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                            </svg>
+                            <p>댓글  <span id="comment-count" th:text="${commentCount}">0</span></p>
+                        </div>
+                    </article>
+
+
+                    <div id="comments">
+
+                        <!-- 댓글 목록 섹션 -->
+                        <div id="comments-section" class="mt-4">
+                            <h5>댓글 목록</h5>
+                            <div th:each="comment : ${comments}">
+                                <div class="card mb-3" th:style="${comment.parentCommentId != null} ? 'margin-left: 20px;' : ''">
+                                    <div class="card-body">
+                                                                            <h6 class="card-subtitle mb-2 text-muted" th:text="${comment.commentAuthor}"></h6>
+                                                                            <p class="card-text" th:text="${comment.commentContent}"></p>
+                                                                            <p class="text-muted" th:text="${#temporals.format(comment.commentCreatedAt, 'yyyy-MM-dd HH:mm')}"></p>
+                                                                            <button class="btn btn-link reply-btn" th:data-comment-id="${comment.commentId}">Reply</button>
+                                        <!-- comment1.js에 html 코드가 작성되어있음 -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- 댓글 작성 폼 -->
+                        <div id="comment-form-section" class="mt-4" th:if="${article.author != '탈퇴한 사용자입니다.' && !#lists.contains(comments, '탈퇴한 사용자입니다.')}">
+                            <h6>댓글 작성</h6>
+                            <div class="d-flex align-items-center mb-2">
+                                <img th:src="${currrentUserImage}" alt="Profile Image" class="profile-image" style="margin: 0px" />
+                                <h6 class="text-muted ml-2" th:text="${currentUserName}"></h6>
+                            </div>
+
+                            <form id="comment-form">
+                                <input type="hidden" name="articleId" th:value="${article.id}"/>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="content" rows="3" placeholder="댓글을 입력하세요"></textarea>
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit" id="comment-btn" class="btn btn-primary btn-sm">댓글 등록</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 경로당:
+        <a class="text-dark" href="/">경로당 홈페이지</a>
+    </footer>
+
+</div>
+<script>
+    const currentUserName = '[[${currentUserName}]]';   // 기본값 'anonymous'로 설정
+    console.log(currentUserName);
+</script>
+<script src="/js/article.js"></script>
+<script src="/js/comment.js"></script>
+<script src="/js/like.js"></script>
+<script src="/js/token.js"></script>
+<script src="/js/notification.js"></script>
+
+
+</body>
+</html>

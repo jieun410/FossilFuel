@@ -34,12 +34,12 @@ public class MyPageController{
         return "self/mypageedit";
     }
 
-    @PostMapping("/mypage/edit/updateProfileImage")
+    @PostMapping("/self/edit/updateProfileImage")
     public String updateProfileImage(@RequestParam("profileImage") MultipartFile profileImage) {
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         myPageService.updateProfileImage(email, profileImage);
 
-        return "redirect:/self/edit"; // 이미지 변경 후 마이페이지로 리다이렉트
+        return "redirect:/mypage/edit"; // 이미지 변경 후 마이페이지로 리다이렉트
     }
 }

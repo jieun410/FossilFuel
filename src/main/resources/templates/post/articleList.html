@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>게시글 글 조회</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- Font Awesome 아이콘 사용을 위한 CSS 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css" rel="stylesheet">
+    <!-- 커스텀 CSS -->
+    <link rel="stylesheet" href="/css/notification.css">
+
+</head>
+
+<body th:attr="data-user-id=${#authentication.name}"> <!-- data-user-id 속성 추가 -->
+<div th:unless="${#authorization.expression('isAuthenticated()')}">
+    <div class="p-5 mb-5 bg-light header-section">
+        <div class="text-center">
+            <a  href="/" style="color: rgb(33, 37, 41);text-decoration: none">
+                <h1 class="mb-3">경로당, 함께하소</h1>
+            </a>
+            <h4 class="mb-3">작은 화면 속 우리들의 소통공간</h4>
+            <button class="btn" onclick="location.href='/login'">로그인</button>
+            <button class="btn" onclick="location.href='/signup'">가입하기</button>
+        </div>
+    </div>
+</div>
+
+
+    <div th:if="${#authorization.expression('isAuthenticated()')}">
+        <div class="p-5 mb-5 bg-light header-section">
+            <div class="text-center">
+                <a href="/" style="color: rgb(33, 37, 41);text-decoration: none">
+                    <h1 class="mb-3">경로당, 함께하소</h1>
+                </a>
+
+                <h4 class="mb-3">작은 화면 속 우리들의 소통공간</h4>
+            </div>
+            <div class="header-right">
+
+                <!-- 종 모양 알림 리스트 아이콘 -->
+                <div class="notification-icon position-relative" id="notification-icon">
+                    <i class="fas fa-bell icon"></i>
+                    <!-- 읽지 않은 알림 개수 표시 -->
+                    <span class="badge badge-danger" id="notification-count">0</span>
+                </div>
+
+                <!-- 알람 설정 아이콘 -->
+                <div class="custom-alarm-icon" id="custom-alarm-icon">
+                    <i class="fas fa-clock icon"></i>
+                </div>
+
+                <button type="button" class="btn btn-secondary my-page-btn" id="my-page-btn"
+                        th:onclick="|location.href='@{/mypage}'|">마이페이지
+                </button>
+                <button type="button" class="btn btn-secondary logout-btn" id="logout-btn">로그아웃</button>
+
+            </div>
+        </div>
+
+        <div class="wrapper">
+
+            <div id="notification-list-popup" class="notification-list-popup d-none">
+                <div class="notification-list-header">
+                    <h5>알림 리스트</h5>
+                    <button type="button" id="close-notification-btn" class="close-notification-btn">&times;</button>
+                </div>
+                <!-- 사용자 지정 알림 섹션 -->
+                <h6 id="custom-alarm-section" class="notification-section-title d-none">사용자 지정 알람</h6>
+                <ul id="custom-alarm-lists" class="notification-list">
+                    <!-- 사용자 지정 알림 항목이 동적으로 추가됩니다. -->
+                </ul>
+
+                <!-- 댓글 및 좋아요 알림 섹션 -->
+                <h6 id="comment-like-section" class="notification-section-title d-none">댓글 및 좋아요</h6>
+                <ul id="comment-like-list" class="notification-list">
+                    <!-- 댓글 및 좋아요 알림 항목이 동적으로 추가됩니다. -->
+                </ul>
+            </div>
+
+            <!-- 커스텀 알람 리스트 팝업 -->
+            <div id="custom-alarm-list-popup" class="custom-alarm-list-popup d-none">
+                <div class="custom-alarm-list-header">
+                    <h5>커스텀 알람 리스트</h5>
+                    <button type="button" id="close-custom-alarm-list-btn" class="close-custom-alarm-list-btn">&times;
+                    </button>
+                </div>
+                <!-- 알림 추가 버튼 -->
+                <div class="d-flex justify-content-end mb-2">
+                    <button type="button" id="add-custom-alarm-btn" class="btn btn-sm btn-success">알림 추가</button>
+                </div>
+                <!-- 사용자 지정 알람 리스트 -->
+                <ul id="custom-alarm-list" class="notification-list">
+                    <!-- 사용자 지정 알람 항목이 동적으로 추가됩니다. -->
+                </ul>
+            </div>
+
+            <!-- 커스텀 알람 설정 팝업 -->
+            <div id="custom-alarm-popup" class="custom-alarm-popup d-none">
+                <div class="custom-alarm-header">
+                    <h5>커스텀 알람 설정</h5>
+                    <button type="button" id="close-alarm-btn" class="close-alarm-btn">&times;</button>
+                </div>
+                <div class="custom-alarm-body">
+                    <label for="alarm-time">알람 시간 설정:</label>
+                    <input type="time" id="alarm-time" class="form-control">
+
+                    <!-- 메시지 입력 -->
+                    <label for="message">알람 메시지 입력:</label>
+                    <input type="text" id="message" placeholder="알람 메시지를 입력하세요" class="form-control">
+
+                    <!-- 요일 선택 -->
+                    <h3>요일 선택:</h3>
+                    <label><input type="checkbox" name="days" value="MONDAY"> 월요일</label><br>
+                    <label><input type="checkbox" name="days" value="TUESDAY"> 화요일</label><br>
+                    <label><input type="checkbox" name="days" value="WEDNESDAY"> 수요일</label><br>
+                    <label><input type="checkbox" name="days" value="THURSDAY"> 목요일</label><br>
+                    <label><input type="checkbox" name="days" value="FRIDAY"> 금요일</label><br>
+                    <label><input type="checkbox" name="days" value="SATURDAY"> 토요일</label><br>
+                    <label><input type="checkbox" name="days" value="SUNDAY"> 일요일</label><br>
+
+                    <!-- 알람 활성화 -->
+                    <label for="alarm-active">알람 활성화:</label>
+                    <input type="checkbox" id="alarm-active">
+
+                    <button id="set-alarm-btn" class="btn btn-primary mt-3">알람 설정</button>
+                </div>
+            </div>
+
+            <!-- 커스텀 알람 수정 팝업 -->
+            <div id="edit-custom-alarm-popup" class="custom-alarm-popup d-none">
+                <div class="custom-alarm-header">
+                    <h5>커스텀 알람 수정</h5>
+                    <button type="button" id="close-edit-alarm-btn" class="close-alarm-btn">&times;</button>
+                </div>
+                <div class="custom-alarm-body">
+                    <label for="edit-alarm-time">알람 시간 설정:</label>
+                    <input type="time" id="edit-alarm-time" class="form-control">
+
+                    <!-- 메시지 입력 -->
+                    <label for="edit-message">알람 메시지 입력:</label>
+                    <input type="text" id="edit-message" placeholder="알람 메시지를 입력하세요" class="form-control">
+
+                    <!-- 요일 선택 -->
+                    <h3>요일 선택:</h3>
+                    <label><input type="checkbox" name="edit-days" value="MONDAY"> 월요일</label><br>
+                    <label><input type="checkbox" name="edit-days" value="TUESDAY"> 화요일</label><br>
+                    <label><input type="checkbox" name="edit-days" value="WEDNESDAY"> 수요일</label><br>
+                    <label><input type="checkbox" name="edit-days" value="THURSDAY"> 목요일</label><br>
+                    <label><input type="checkbox" name="edit-days" value="FRIDAY"> 금요일</label><br>
+                    <label><input type="checkbox" name="edit-days" value="SATURDAY"> 토요일</label><br>
+                    <label><input type="checkbox" name="edit-days" value="SUNDAY"> 일요일</label><br>
+
+                    <!-- 알람 활성화 -->
+                    <label for="edit-alarm-active">알람 활성화:</label>
+                    <input type="checkbox" id="edit-alarm-active">
+
+                    <button id="save-edit-alarm-btn" class="btn btn-primary mt-3">수정 저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="articleList-content">
+        <div>
+            <h4 style="font-family:'나눔고딕 ExtraBold'">전체 게시판</h4>
+            <p style="font-family:'나눔고딕'">오손 도손 이야기터</p>
+        </div>
+
+        <div class="container">
+            <div style="text-align: right;">
+                <button type="button" id="create-btn"
+                        th:onclick="|location.href='@{/new-article}'|"
+                        class="btn btn-secondary btn-sm mb-3">글 등록
+                </button>
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th style="min-width: 50px;">번호</th>
+                    <th>제목</th>
+                    <th style="min-width: 50px;">작성자</th>
+                    <th style="min-width: 50px;">작성일</th>
+                    <th style="min-width: 50px;">조회수</th>
+                    <th style="min-width: 50px;">좋아요</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${articles}">
+                    <td style="color: #575757; " th:text="${item.id}"></td>
+
+                    <td>
+                        <a class="card-title-link" th:href="@{/articles/{id}(id=${item.id})}"
+                           th:text="${item.title}"></a>
+                    </td>
+
+
+                    <td style="color: #575757; " th:text="${item.author}"></td>
+                    <td style="color: #575757; " th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd')}"></td>
+                    <td style="color: #575757; " th:text="${item.viewCount}"></td>
+
+                </tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <!-- 페이지네이션 부분 -->
+                    <li class="page-item" th:classappend="${page.number >= 10} ? '' : 'd-none'">
+                        <a class="page-link" th:href="@{/articles(page=${(page.number/10)*10 }, size=${page.size})}"
+                           tabindex="-1">&laquo;</a>
+                    </li>
+                    <li class="page-item" th:classappend="${page.hasPrevious()} ? '' : 'disabled'">
+                        <a class="page-link" th:href="@{/articles(page=${page.number}, size=${page.size})}"
+                           tabindex="-1">&lt;</a>
+                    </li>
+                    <li class="page-item"
+                        th:each="i : ${#numbers.sequence((page.number/10)*10, ((page.number/10)*10 + 9) < page.totalPages ? (page.number/10)*10 + 9 : page.totalPages - 1)}"
+                        th:classappend="${page.number == i} ? 'active' : ''">
+                        <a class="page-link" th:href="@{/articles(page=${i+1}, size=${page.size})}"
+                           th:text="${i+1}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${page.hasNext()} ? '' : 'disabled'">
+                        <a class="page-link" th:href="@{/articles(page=${page.number + 2}, size=${page.size})}">&gt;</a>
+                    </li>
+                    <li class="page-item"
+                        th:classappend="${(page.number/10)*10 + 10 < page.totalPages} ? '' : 'd-none'">
+                        <a class="page-link"
+                           th:href="@{/articles(page=${(page.number/10)*10 + 11}, size=${page.size})}">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <footer>© 2024 경로당: <a class="text-dark" href="/">경로당 홈페이지</a></footer>
+</div>
+
+<script src="/js/token.js"></script>
+<script src="/js/article.js"></script>
+<script src="/js/notification.js"></script>
+</body>
+</html>

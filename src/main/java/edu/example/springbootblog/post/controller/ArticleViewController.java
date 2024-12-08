@@ -44,7 +44,7 @@ public class ArticleViewController {
         model.addAttribute("page", articleListPage);
 
         // articleList.html 템플릿으로 리턴 (게시글 목록 페이지)
-        return "articleList";
+        return "post/articleList";
     }
 
     // 특정 게시글을 가져와서 보여줌
@@ -84,7 +84,7 @@ public class ArticleViewController {
         model.addAttribute("commentCount", commentCount);
 
         // article.html 템플릿으로 리턴 (게시글 상세 페이지)
-        return "article";
+        return "post/article";
     }
 
     // 새 게시글 작성 또는 수정 페이지로 이동
@@ -101,7 +101,7 @@ public class ArticleViewController {
         }
 
         // newBlog.html 템플릿으로 리턴 (새 글 작성/수정 페이지)
-        return "newArticle";
+        return "post/newArticle";
     }
 
 

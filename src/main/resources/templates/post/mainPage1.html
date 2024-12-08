@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>경로당, 함께하소</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- Font Awesome 아이콘 사용을 위한 CSS 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css" rel="stylesheet">
+    <!-- 커스텀 CSS -->
+    <link rel="stylesheet" href="/css/notification.css">
+    <style>
+        /* 전체 배경 색상 */
+        body {
+            background-color: #f4f4f4; /* 연한 회색 배경 */
+            margin-bottom: 60px; /* 푸터 높이만큼 여백 추가 */
+        }
+
+        /* 헤더 스타일 */
+        .header-section {
+            background-color: transparent; /* 투명으로 변경 */
+            padding: 50px;
+            text-align: center;
+            border-bottom: 2px solid #ccc; /* 헤더 아래 경계선 */
+            position: relative; /* 이미지 위치를 위해 */
+            z-index: 1; /* 위로 올리기 */
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            position: relative; /* 텍스트에 깊이를 주기 위해 */
+            z-index: 2; /* 텍스트가 이미지 위에 나타나도록 설정 */
+        }
+
+        .header-section h4 {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* 버튼 스타일 */
+        .header-section .btn {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #444;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* 버튼 컨테이너 */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            position: relative; /* 버튼의 절대 위치 설정을 위해 */
+            z-index: 1; /* 버튼이 이미지 위에 나타나도록 설정 */
+        }
+
+        .card-btn {
+            flex: 1; /* 카드가 동일한 크기로 설정되도록 */
+            margin: 0 10px; /* 여백 설정 */
+            background-color: white;
+            border: 2px solid black;
+            color: black;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+            height: 150px; /* 카드 높이 조정 */
+        }
+
+        .card-btn:hover {
+            background-color: black; /* 호버 시 배경색 */
+            color: white;
+            transform: scale(1.05); /* 호버 시 크기 증가 */
+            transition: transform 0.3s, background-color 0.3s; /* 애니메이션 효과 */
+        }
+
+        /* 새로운 디자인 섹션 */
+        .highlight-section {
+            position: relative;
+            overflow: hidden;
+            margin-top: 30px;
+            height: 500px; /* 고정된 높이 */
+            z-index: 0;
+        }
+
+        .highlight-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 1.5s ease; /* 이미지 숨겨지는 효과 */
+        }
+
+        .highlight-section.scrolled img {
+            transform: scale(1.1); /* 스크롤 시 이미지 확대 */
+        }
+
+        .highlight-text {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1s ease, transform 1s ease; /* 텍스트 등장 효과 */
+        }
+
+        .highlight-section.scrolled .highlight-text {
+            opacity: 1;
+            transform: translateX(0) translateY(-50%);
+        }
+
+        /* 정보 컨테이너 */
+        .info-container {
+            display: flex;
+            flex-wrap: wrap; /* 한 줄에 두 개씩 배치되도록 설정 */
+            justify-content: space-around; /* 카드 간격 조정 */
+            margin-top: 30px; /* 위쪽 여백 */
+        }
+
+        .info-section {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            flex: 0 1 calc(50% - 20px); /* 박스가 두 개씩 배치되도록 설정 */
+            margin: 10px; /* 박스 사이의 여백 */
+        }
+
+        .info-section:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-section img {
+            max-width: 100%;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body th:attr="data-user-id=${#authentication.name}"> <!-- data-user-id 속성 추가 -->
+
+<div class="container">
+    <!-- 헤더 섹션 -->
+
+    <!-- 로그인 및 가입하기 버튼: 인증되지 않은 사용자에게만 표시 -->
+
+    <div th:unless="${#authorization.expression('isAuthenticated()')}">
+        <div class="header-section">
+            <h1>경로당, 함께하소</h1>
+            <h4>작은 화면 속 우리들의 소통공간</h4>
+            <button class="btn" onclick="location.href='/login'">로그인</button>
+            <button class="btn" onclick="location.href='/signup'">가입하기</button>
+        </div>
+    </div>
+
+
+    <!-- 마이페이지 및 로그아웃 버튼: 인증된 사용자에게만 표시 -->
+    <div th:if="${#authorization.expression('isAuthenticated()')}">
+
+        <div class="header-section">
+
+                <h1 class="mb-3">경로당, 함께하소</h1>
+
+            <h4 class="mb-3">작은 화면 속 우리들의 소통공간</h4>
+        </div>
+        <!-- 우측 상단에 로그아웃 버튼 -->
+        <div class="header-right">
+            <!-- 종 모양 알림 리스트 아이콘 -->
+            <div class="notification-icon position-relative" id="notification-icon">
+                <i class="fas fa-bell icon"></i>
+                <!-- 읽지 않은 알림 개수 표시 -->
+                <span class="badge badge-danger" id="notification-count">0</span>
+            </div>
+            <!-- 알람 설정 아이콘 -->
+            <div class="custom-alarm-icon" id="custom-alarm-icon">
+                <i class="fas fa-clock icon"></i>
+            </div>
+            <button type="button" class="btn btn-secondary my-page-btn" id="my-page-btn"
+                    th:onclick="|location.href='@{/mypage}'|">마이페이지</button>
+            <button type="button" class="btn btn-secondary logout-btn" id="logout-btn">로그아웃</button>
+        </div>
+            <div class="wrapper">
+
+                <div id="notification-list-popup" class="notification-list-popup d-none">
+                    <div class="notification-list-header">
+                        <h5>알림 리스트</h5>
+                        <button type="button" id="close-notification-btn" class="close-notification-btn">&times;</button>
+                    </div>
+                    <!-- 사용자 지정 알림 섹션 -->
+                    <h6 id="custom-alarm-section" class="notification-section-title d-none">사용자 지정 알람</h6>
+                    <ul id="custom-alarm-lists" class="notification-list">
+                        <!-- 사용자 지정 알림 항목이 동적으로 추가됩니다. -->
+                    </ul>
+
+                    <!-- 댓글 및 좋아요 알림 섹션 -->
+                    <h6 id="comment-like-section" class="notification-section-title d-none">댓글 및 좋아요</h6>
+                    <ul id="comment-like-list" class="notification-list">
+                        <!-- 댓글 및 좋아요 알림 항목이 동적으로 추가됩니다. -->
+                    </ul>
+                </div>
+
+                <!-- 커스텀 알람 리스트 팝업 -->
+                <div id="custom-alarm-list-popup" class="custom-alarm-list-popup d-none">
+                    <div class="custom-alarm-list-header">
+                        <h5>커스텀 알람 리스트</h5>
+                        <button type="button" id="close-custom-alarm-list-btn" class="close-custom-alarm-list-btn">&times;</button>
+                    </div>
+                    <!-- 알림 추가 버튼 -->
+                    <div class="d-flex justify-content-end mb-2">
+                        <button type="button" id="add-custom-alarm-btn" class="btn btn-sm btn-success">알림 추가</button>
+                    </div>
+                    <!-- 사용자 지정 알람 리스트 -->
+                    <ul id="custom-alarm-list" class="notification-list">
+                        <!-- 사용자 지정 알람 항목이 동적으로 추가됩니다. -->
+                    </ul>
+                </div>
+
+                <!-- 커스텀 알람 설정 팝업 -->
+                <div id="custom-alarm-popup" class="custom-alarm-popup d-none">
+                    <div class="custom-alarm-header">
+                        <h5>커스텀 알람 설정</h5>
+                        <button type="button" id="close-alarm-btn" class="close-alarm-btn">&times;</button>
+                    </div>
+                    <div class="custom-alarm-body">
+                        <label for="alarm-time">알람 시간 설정:</label>
+                        <input type="time" id="alarm-time" class="form-control">
+
+                        <!-- 메시지 입력 -->
+                        <label for="message">알람 메시지 입력:</label>
+                        <input type="text" id="message" placeholder="알람 메시지를 입력하세요" class="form-control">
+
+                        <!-- 요일 선택 -->
+                        <h3>요일 선택:</h3>
+                        <label><input type="checkbox" name="days" value="MONDAY"> 월요일</label><br>
+                        <label><input type="checkbox" name="days" value="TUESDAY"> 화요일</label><br>
+                        <label><input type="checkbox" name="days" value="WEDNESDAY"> 수요일</label><br>
+                        <label><input type="checkbox" name="days" value="THURSDAY"> 목요일</label><br>
+                        <label><input type="checkbox" name="days" value="FRIDAY"> 금요일</label><br>
+                        <label><input type="checkbox" name="days" value="SATURDAY"> 토요일</label><br>
+                        <label><input type="checkbox" name="days" value="SUNDAY"> 일요일</label><br>
+
+                        <!-- 알람 활성화 -->
+                        <label for="alarm-active">알람 활성화:</label>
+                        <input type="checkbox" id="alarm-active">
+
+                        <button id="set-alarm-btn" class="btn btn-primary mt-3">알람 설정</button>
+                    </div>
+                </div>
+
+                <!-- 커스텀 알람 수정 팝업 -->
+                <div id="edit-custom-alarm-popup" class="custom-alarm-popup d-none">
+                    <div class="custom-alarm-header">
+                        <h5>커스텀 알람 수정</h5>
+                        <button type="button" id="close-edit-alarm-btn" class="close-alarm-btn">&times;</button>
+                    </div>
+                    <div class="custom-alarm-body">
+                        <label for="edit-alarm-time">알람 시간 설정:</label>
+                        <input type="time" id="edit-alarm-time" class="form-control">
+
+                        <!-- 메시지 입력 -->
+                        <label for="edit-message">알람 메시지 입력:</label>
+                        <input type="text" id="edit-message" placeholder="알람 메시지를 입력하세요" class="form-control">
+
+                        <!-- 요일 선택 -->
+                        <h3>요일 선택:</h3>
+                        <label><input type="checkbox" name="edit-days" value="MONDAY"> 월요일</label><br>
+                        <label><input type="checkbox" name="edit-days" value="TUESDAY"> 화요일</label><br>
+                        <label><input type="checkbox" name="edit-days" value="WEDNESDAY"> 수요일</label><br>
+                        <label><input type="checkbox" name="edit-days" value="THURSDAY"> 목요일</label><br>
+                        <label><input type="checkbox" name="edit-days" value="FRIDAY"> 금요일</label><br>
+                        <label><input type="checkbox" name="edit-days" value="SATURDAY"> 토요일</label><br>
+                        <label><input type="checkbox" name="edit-days" value="SUNDAY"> 일요일</label><br>
+
+                        <!-- 알람 활성화 -->
+                        <label for="edit-alarm-active">알람 활성화:</label>
+                        <input type="checkbox" id="edit-alarm-active">
+
+                        <button id="save-edit-alarm-btn" class="btn btn-primary mt-3">수정 저장</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+    <!-- 버튼 컨테이너 -->
+    <div class="wrapper">
+        <div class="btn-container">
+            <a href="/random-video-chat" class="card-btn">화상 채팅방 입장</a>
+            <a href="/articles" class="card-btn">경로당 입장</a>
+            <a href="/chat/list" class="card-btn">오픈채팅 입장</a>
+        </div>
+    </div>
+
+    <!-- 새로운 디자인 섹션 -->
+    <div class="highlight-section" id="highlight">
+        <img src="https://cdn.pixabay.com/photo/2015/01/29/22/25/old-people-616718_640.jpg" alt="인생의 황혼기">
+        <div class="highlight-text">인생의 황혼기, 함께 살아가는 즐거움<br/>경로당을 소개합니다.</div>
+    </div>
+
+    <!-- 정보 컨테이너 -->
+    <div class="info-container">
+        <div class="info-section">
+            <br/>
+            <h4>커뮤니티 '경로당'</h4>
+            <img src="https://media.istockphoto.com/id/2157540670/ko/%EC%82%AC%EC%A7%84/group-of-diverse-people-stacking-hands-in-the-middle.jpg?s=612x612&w=is&k=20&c=66TkG7HsOfQqxbrSbMZUjD4uyDmAoSNYTmJbXbJPKVE="
+                 alt="커뮤니티 이미지">
+            <p>집에서 편하게 동네 친구들과 소통하고 모임을 갖는 경로당커뮤니티</p>
+        </div>
+        <div class="info-section">
+            <h4>간편한 <br/>인터페이스 제공</h4>
+            <img src="https://media.istockphoto.com/id/1142528983/ko/%EC%82%AC%EC%A7%84/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%97%90%EC%84%9C-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%9D%84-%EC%82%AC%EC%9A%A9-%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%9C-%EC%8A%A4%EB%A7%88%ED%8A%B8-%ED%8F%B0-%ED%99%94%EB%A9%B4%EC%9D%84-%EB%A7%8C%EC%A7%80%EA%B3%A0-%EB%82%A8%EC%84%B1-%EC%86%90%EC%9D%98-%EA%B7%BC%EC%A0%91-%EC%B4%AC%EC%98%81.jpg?s=612x612&w=is&k=20&c=PzCDZz6pLZrF5AJpRAl8_h0X04BFZjdpHJNDmtpu0TM="
+                 alt="인터페이스 이미지">
+            <p>간편한 인터페이스로 누구나 쉽게 접근 가능</p>
+        </div>
+        <div class="info-section">
+            <h4>오픈채팅,<br/> 화상채팅 서비스</h4>
+            <img src="https://media.istockphoto.com/id/1355302972/ko/%EC%82%AC%EC%A7%84/%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%A7%81%EC%9B%90%EC%9D%84-%EC%A7%80%EC%9B%90%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%B4-%EC%9D%B4%EC%95%BC%EA%B8%B0%ED%95%98%EB%8A%94-%EC%95%84%ED%94%84%EB%A6%AC%EC%B9%B4-%EA%B3%84-%EB%AF%B8%EA%B5%AD%EC%9D%B8-%EA%B3%A0%EA%B0%9D-%EC%97%AC%EC%84%B1.jpg?s=612x612&w=is&k=20&c=9ojFPWJ5azVEnSnvm9BEpJ-2HifYlVvoYY5bNhHIaM0="
+                 alt="화상채팅 이미지">
+            <p>직접 마주보며 소통하고 편안하게 소통하는 오픈, 화상채팅 서비스</p>
+        </div>
+        <div class="info-section">
+            <h4>커스텀 '알람'</h4>
+            <br/>
+            <img src="https://media.istockphoto.com/id/1300036753/ko/%EC%82%AC%EC%A7%84/%EB%96%A8%EC%96%B4%EC%A7%80%EB%8A%94-%ED%95%AD%EC%83%9D%EC%A0%9C-%ED%97%AC%EC%8A%A4%EC%BC%80%EC%96%B4-%EB%B0%B0%EA%B2%BD.webp?s=612x612&w=is&k=20&c=mpeAYXBMMVDQCgbRq6ijaoMOyycl4CJk_oYg6lu4OYc="
+                 alt="커스텀 알람 이미지">
+            <br/>
+            <br/>
+            <p>건강 동반자, 약먹는 시간을 직접 설정하는 커스텀 알람 서비스</p>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 경로당:
+        <a class="text-dark" href="#">경로당 홈페이지</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+    <script>
+        window.addEventListener('scroll', function () {
+            const highlightSection = document.getElementById('highlight');
+            const scrollPosition = window.scrollY;
+
+            // 특정 스크롤 위치에 도달하면 클래스 추가
+            if (scrollPosition > 300) {
+                highlightSection.classList.add('scrolled');
+            } else {
+                highlightSection.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+</div>
+<script src="/js/article.js"></script>
+<script src="/js/comment.js"></script>
+<script src="/js/like.js"></script>
+<script src="/js/token.js"></script>
+<script src="/js/notification.js"></script>
+<script src="/js/myPage.js"></script>
+</body>
+</html>
