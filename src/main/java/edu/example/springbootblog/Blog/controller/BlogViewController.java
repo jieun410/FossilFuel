@@ -5,6 +5,7 @@ import edu.example.springbootblog.Blog.dto.viewdto.BlogListViewResponse;
 import edu.example.springbootblog.Blog.dto.viewdto.BlogViewResponse;
 import edu.example.springbootblog.Blog.service.BlogService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,12 @@ import java.util.List;
 public class BlogViewController {
     private final BlogService blogService;
 
-//    @Value("${kakao.map.api.key}")
-//    private String kakaoApiKey;
+    @Value("${kakao.map.api.key}")
+    private String kakaoApiKey;
 
     @GetMapping("/")
     public String blogs(Model model) {
-    //    model.addAttribute("kakaoApiKey", kakaoApiKey);
+        model.addAttribute("kakaoApiKey", kakaoApiKey);
         List<BlogListViewResponse> blogs = blogService.findAll().stream()
                 .map(BlogListViewResponse::new)
                 .toList();
