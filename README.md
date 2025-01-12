@@ -61,7 +61,7 @@
 - $ cd FossilFuel/
   * vi application.yml + copy that
 - $ chmod u+x gradlew
-  * rm -rf build
+  * rm -rf build (아래 명령어가 동일한 작업 진행, =불필요)
   * ./gradlew clean
   * ./gradlew build -x test
 - $ ./gradlew build -x test (테스트 없이 진행)
@@ -69,6 +69,13 @@
     * nohup: 터미널 세션을 닫아도 애플리케이션 계속 실행 (로그 nohup 저장)
     * &: 명령을 백그라운드에서 실행시켜 터미널을 계속 사용
 - $ tail -f nohup.out (로그 실시간)
+- ** 무슨 작업전에 꼭 top으로 메모리 사용량 확인할 것 **
+
+- [변경 사항 적용법 pull->clean->build]
+  * cd FossilFuel
+  * git pull origin main
+  * ./gradlew clean
+  * ./gradlew build -x test
 
 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/d74fbc3f-9eab-4016-82bc-d66479a198ea">
