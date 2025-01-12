@@ -42,7 +42,11 @@ public class UserApiController {
     @PostMapping("/user") // HTTP POST 요청으로 회원가입 처리
     public String signup(AddUserRequest request){
         userService.save(request); // UserService를 통해 회원가입 로직 수행
-        return "redirect:/login"; // 회원가입이 완료되면 로그인 페이지로 리다이렉트
+
+
+        return "user/oauthLogin";
+
+
     }
 
 
@@ -93,7 +97,10 @@ public class UserApiController {
                 SecurityContextHolder.getContext().getAuthentication());
 
         // 로그아웃 완료 후 로그인 페이지로 리다이렉트
-        return "redirect:/login";
+
+        return "user/oauthLogin";
+
+
     }
 
 

@@ -17,6 +17,25 @@
 ## 아키텍처
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/72151a4b-28f5-451c-b369-0f47b6aef934">
 
+
+## AWS2 
+- 아래에 있는 기존 방식을 진행하는 도중, pull 하지 않고 rm -rf로 기존의 것들을 삭제
+  * 그리고 다시 git clone 을 통해 빌드하던 도중, ./gradlew build -x test 에서 무한로딩 발생
+  * 인스턴스를 초기화 || 삭제하는 것 만이 해결책일꺼라고 생각
+  * => 로컬 환경에서는 빌드가 정상적으로 이루어지는 것을 확인 
+  * =>=> 도커를 통해 이미지를 배포하고, 이를 AWS 에 배포하는 것을 생각함 
+- 01 ** Dockerfile 작성 **
+- 02 $ ./gradlew clean build 
+- 03 $ docker build -t fossilfuel-app . 
+  * 도커 이미지 생성, 도커는 백그라운드에서 동작 중이어야 함 
+  * 다 잘 됬는데, 계속 뻑나는 부분이 default.jpeg 를 못찾음 -> 코드 수정 (null)
+  * 다른 방법 classpath, environment 시도 해도 도커는 계속 뻑남
+- $ docker run -p 8080:8080 fossilfuel-app
+  * ec2 용량 문제도 있는거 같아서, 초기화 했는데, 문제는 mac 이미지가 현재 사용 중인 아키텍처(linux/amd64)와 호환되지 않음
+  * 일단 도커 허브 리포지토리 생성, 이미지 푸쉬는 된 상태
+- docker tag fossilfuel-app6:latest kangminlog/fossilfuel:v1
+- docker push kangminlog/fossilfuel:v1 
+
 ## AWS 
 - EC2 : 인스턴스 1, 엘라스틱ip 1
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/440bd876-3e94-4288-a586-c5eed40cd4cf">
@@ -29,19 +48,19 @@
 - sudo apt update || sudo dnf update
 - sudo apt install openjdk-17-jdk || sudo dnf install java-17-amazon-corretto-devel
 - sudo apt install git || sudo dnf install git
-- $ git clone https://github.com/adorahelen/Solo-AWS
-- $ cd Solo-AWS/
+- $ git clone https://github.com/adorahelen/FossilFuel
+- $ cd FossilFuel/
+  * vi application.yml + copy that
 - $ chmod u+x gradlew
-- $ ls -l gradlew
-- $ ./gradlew build (시간 초과 및 에러)
+  * rm -rf build
+  * ./gradlew clean
+  * ./gradlew build -x test
 - $ ./gradlew build -x test (테스트 없이 진행)
-- $ java -jar SpringBootBlog-0.0.1-SNAPSHOT.jar (백그라운드 x)
 - $ nohup java -jar SpringBootBlog-0.0.1-SNAPSHOT.jar &
-    * nohup: 터미널 세션을 닫아도 애플리케이션 계속 실행
+    * nohup: 터미널 세션을 닫아도 애플리케이션 계속 실행 (로그 nohup 저장)
     * &: 명령을 백그라운드에서 실행시켜 터미널을 계속 사용
-- $ nohup java -jar SpringBootBlog-0.0.1-SNAPSHOT.jar > output.log 2>&1 &
-    * > output.log: 표준 출력을 output.log 파일에 저장
-    * 2>&1: 표준 에러 출력을 표준 출력으로 리다이렉트하여 모든 출력이 output.log에 기록
+- $ tail -f nohup.out (로그 실시간)
+
 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/d74fbc3f-9eab-4016-82bc-d66479a198ea">
 

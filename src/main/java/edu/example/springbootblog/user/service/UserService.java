@@ -6,6 +6,9 @@ import edu.example.springbootblog.user.dto.AddUserRequest;
 import edu.example.springbootblog.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
+
+
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository; // 사용자 정보를 처리하는 레포지토리
 
+    @Value("${default.image.path}")
+    private String defaultImagePath;
 
 
     // 사용자 저장 메서드 (회원가입)
@@ -44,17 +49,16 @@ public class UserService {
                 e.printStackTrace();
                 throw new RuntimeException("Failed to process the profile image", e);
             }
-        } else {
-            try {
-                File defaultImage = new File("src/main/resources/static/img/default.jpeg");
-                profileImageBytes = Files.readAllBytes(defaultImage.toPath());
-                String fileName = UUID.randomUUID() + "_default.jpeg" ;
-                profileUrl = fileName;
-            } catch (IOException e) {
-                e.printStackTrace();
-                throw new RuntimeException("Failed to load the default profile image", e);
-            }
         }
+
+
+        else {
+            // 이미지가 없는 경우 null로 설정
+            profileImageBytes = null;
+            profileUrl = null;
+        }
+
+
 
         User user = User.builder()
                 .email(dto.getEmail())
