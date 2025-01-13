@@ -127,8 +127,8 @@
  <img width="700" alt="image" src="https://github.com/user-attachments/assets/0ea4641b-fb77-4c20-a8e7-f9fea47d01b2" />
 
 - https 적용 (24.11.13 ~ 25.01.13) 
-- SSL/TLS 인증서 준비 : AWS Certificate Manager(ACM)에서 인증서 요청
-- AWS Elastic Load Balancer와 Target Group 구성
+  * SSL/TLS 인증서 준비 : AWS Certificate Manager(ACM)에서 인증서 요청
+  * AWS Elastic Load Balancer와 Target Group 구성
   * HTTPS 리스너 추가
   * HTTP → HTTPS 리다이렉트 설정
   * * 보안그룹에 https 인바운드 규칙이 없었던게 무한로딩 원인
