@@ -1,5 +1,6 @@
 # 학과 동아리 웹 사이트 운영
 - http://fossilfuel.site
+- https://fossilfuel.site
 
 ## UI
 <img width="900" alt="image" src="https://github.com/user-attachments/assets/b4333a32-2a17-4925-8986-09ebe5799dbb">
@@ -112,8 +113,9 @@
 
 
 ## 도전과제
-- RDS (현재는 H2, 서버재부팅시 방명록 초기화)
-- https (회원 시스템 도입전에)
+- RDS (현재는 H2, 서버재부팅시 방명록, 회원, 작성글 초기화)
+   * 추가요금 발생 
+- DNS 트러블 슈팅  
   * https 적용하려 ssl/tls 인증서 발급 -> 로드밸런스 생성 -> 레코드 삭제(miss) : dns 접속 뻑남
   * => fossilfuel.site의 A 레코드가 삭제된 상태
   * 도메인이 IP 주소로 매핑되지 않아 도메인으로 접속이 불가능한 상태 -> A 레코드를 다시 설정
@@ -124,6 +126,17 @@
  <img width="700" alt="image" src="https://github.com/user-attachments/assets/cd3fd5fe-b698-4022-9d1c-5d5b2e59c680" />
  <img width="700" alt="image" src="https://github.com/user-attachments/assets/0ea4641b-fb77-4c20-a8e7-f9fea47d01b2" />
 
+- https 적용 (24.11.13 ~ 25.01.13) 
+- SSL/TLS 인증서 준비 : AWS Certificate Manager(ACM)에서 인증서 요청
+- AWS Elastic Load Balancer와 Target Group 구성
+  * HTTPS 리스너 추가
+  * HTTP → HTTPS 리다이렉트 설정
+  * * 보안그룹에 https 인바운드 규칙이 없었던게 무한로딩 원인
+ 
+ <img width="344" alt="image" src="https://github.com/user-attachments/assets/9cffd05a-adb3-4e5a-a957-f58b1a21a594" />
+
+
 
   
 - CI&CD 파이프라인 구축 (아직은 수동) -> stop git action
+  * git pull - clean - build 
