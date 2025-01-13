@@ -114,4 +114,16 @@
 ## 도전과제
 - RDS (현재는 H2, 서버재부팅시 방명록 초기화)
 - https (회원 시스템 도입전에)
+  * https 적용하려 ssl/tls 인증서 발급 -> 로드밸런스 생성 -> 레코드 삭제(miss) : dns 접속 뻑남
+  * => fossilfuel.site의 A 레코드가 삭제된 상태
+  * 도메인이 IP 주소로 매핑되지 않아 도메인으로 접속이 불가능한 상태 -> A 레코드를 다시 설정
+  * 레코드 유형(Type): A
+  * 이름(Name): 빈칸(또는 fossilfuel.site 입력)
+  * 저장 후 몇 분에서 몇 시간이 지나면 DNS가 전파되어 http://fossilfuel.site/로 접속이 가능
+
+ <img width="700" alt="image" src="https://github.com/user-attachments/assets/cd3fd5fe-b698-4022-9d1c-5d5b2e59c680" />
+ <img width="700" alt="image" src="https://github.com/user-attachments/assets/0ea4641b-fb77-4c20-a8e7-f9fea47d01b2" />
+
+
+  
 - CI&CD 파이프라인 구축 (아직은 수동) -> stop git action
