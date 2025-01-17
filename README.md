@@ -113,8 +113,24 @@
 
 
 ## 도전과제
-- RDS (현재는 H2, 서버재부팅시 방명록, 회원, 작성글 초기화)
-   * 추가요금 발생 
+
+
+- CI&CD 파이프라인 구축 (아직은 수동) -> stop git action
+  * git pull - clean - build
+
+### = 해결 =
+
+- RDS 트러블 슈팅
+  * 추가요금 발생 -> 그냥 비용 지불 (ip4 과금은 이미 시작됨)
+  * 01 퍼블릭 접근 여부 (RDS) -> 지금 끄고, 자고 일어나서 리부팅시 날아감 ->필수
+  * 02 디비 백업 설정 여부 (RDS) -> 아마 필수(01 + 03 => 인텔리제이 날아갔었음)
+  * 03 * .yml 파일만 업데이트 하고 "build"를 다시 하지 않음
+  * ** 즉 기존에 H2db 베이스 .jar 를 계속 돌리고 있던게 원인
+  * ** 로컬에서는 상관없지만, 리눅스 서버 위에서는 RUN  = 리빌드는 필수
+  * $ ps -ef | grep [여기는 .jar 파일 이름]
+  * $ kill -9 [여기는 ps id] 
+
+
 - DNS 트러블 슈팅  
   * https 적용하려 ssl/tls 인증서 발급 -> 로드밸런스 생성 -> 레코드 삭제(miss) : dns 접속 뻑남
   * => fossilfuel.site의 A 레코드가 삭제된 상태
@@ -136,7 +152,14 @@
  <img width="344" alt="image" src="https://github.com/user-attachments/assets/9cffd05a-adb3-4e5a-a957-f58b1a21a594" />
 
 
+## 전체 구조 요약
 
-  
-- CI&CD 파이프라인 구축 (아직은 수동) -> stop git action
-  * git pull - clean - build 
+1.	로드 밸런서
+•	fossilfuel-load는 외부에서 들어오는 HTTP/HTTPS 요청을 처리하고, Target Group으로 트래픽을 라우팅합니다.
+2.	Target Group
+•	fossilfuel Target Group은 등록된 EC2 인스턴스로 트래픽을 전달합니다.
+3.	리스너 및 규칙
+•	HTTP(80) 요청은 HTTPS(443)로 리디렉션됩니다.
+•	HTTPS 요청은 Target Group으로 전달됩니다.
+
+      
