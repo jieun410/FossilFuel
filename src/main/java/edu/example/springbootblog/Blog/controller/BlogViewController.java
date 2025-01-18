@@ -56,5 +56,13 @@ public class BlogViewController {
         return "blog/newBlog";
     }
 
+
+    @GetMapping("/delete-blog")
+    public String deleteBlog(@RequestParam Long id) {
+        // 블로그 삭제 로직
+        blogService.delete(id);
+        return "redirect:/";  // 삭제 후 홈 페이지로 리다이렉트
+    }
+
     
 }

@@ -61,7 +61,7 @@ public class SecurityConfig  {
 
         // API 토큰 발급 경로와 파일 업로드 경로는 인증 없이 접근 가능
         http.authorizeRequests()
-                .requestMatchers("/api/token", "/api/upload/**", "/api/login", "/ws/**").permitAll() // 인증 필요 없음
+                .requestMatchers("/api/token", "/api/upload/**", "/api/login", "/ws/**", "/api/blogs/**", "blogs/", "/new-blog", "/articles").permitAll() // 인증 필요 없음
                 .requestMatchers("/api/**").authenticated()  // API 요청은 인증이 필요
                 //  .requestMatchers("/mypage").authenticated() // Only authenticated users can access
                 .anyRequest().permitAll();  // 그 외 모든 요청은 인증 필요 없음

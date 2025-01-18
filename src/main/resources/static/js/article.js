@@ -155,7 +155,7 @@ function httpRequest(method, url, body, success, fail) {
         // Content-Type 설정하지 않음, FormData 사용 시 브라우저가 자동으로 설정함
     };
 
-    fetch(url, {
+    fetch(url, { // 에러 원인
         method: method,
         headers: headers,  // Content-Type 설정하지 않음
         body: body, // FormData 객체 전달

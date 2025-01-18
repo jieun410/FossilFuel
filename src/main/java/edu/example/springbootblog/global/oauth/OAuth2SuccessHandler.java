@@ -34,7 +34,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token"; //리프레시 토큰이 저장될 쿠키의 이름으로 "refresh_token"이라는 이름을 사용한다.
     public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14); //리프레시 토큰의 유효 기간을 14일로 설정한 상수
     public static final Duration ACCESS_TOKEN_DURATION = Duration.ofDays(1); //액세스 토큰의 유효 기간을 1일로 설정한 상수
-    public static final String REDIRECT_PATH = "/"; //인증 성공 후 사용자가 리다이렉트될 경로로 "/articles"로 설정되어 있다.
+    public static final String REDIRECT_PATH = "/articles"; //인증 성공 후 사용자가 리다이렉트될 경로로 "/articles"로 설정되어 있다.
 
     //인증 처리에 필요한 의존성
     private final TokenProvider tokenProvider; // TokenProvider는 JWT 토큰을 생성하고,
