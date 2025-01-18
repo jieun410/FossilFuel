@@ -27,12 +27,7 @@ if (deleteButton) {
             location.replace('/articles');
         }
 
-        // function fail(response) {
-        //     response.text().then(text => {
-        //         alert('삭제에 실패했습니다');
-        //         location.replace('/articles');
-        //     });
-        // }
+
         function fail(response) {
             console.log("Fail function called");  // fail 함수 호출 확인
             response.json().then(data => {  // JSON 응답 처리
@@ -194,37 +189,3 @@ function httpRequest(method, url, body, success, fail) {
         }
     }).catch(error => fail(error));
 }
-document.addEventListener('DOMContentLoaded', () => {
-    const notificationCount = document.getElementById('notification-count');
-
-    // 읽지 않은 알림 수를 가져오는 함수 정의
-    function fetchUnreadNotificationCount() {
-        fetch('/api/notifications/unread-count', {
-            method: 'GET',
-            credentials: 'include'
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Error fetching unread count: ${response.statusText}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Fetched unread count in article.js:", data);
-                const unreadCount = data.unreadCount || 0;
-                notificationCount.textContent = unreadCount;
-                notificationCount.classList.toggle('hidden', unreadCount === 0);
-            })
-            .catch(error => {
-                console.error('Error fetching unread notification count in article.js:', error);
-                notificationCount.textContent = '0';
-                notificationCount.classList.add('hidden');
-            });
-    }
-
-    // 페이지 로드 시마다 알림 수 갱신
-    fetchUnreadNotificationCount();
-});
-
-
-
