@@ -159,7 +159,7 @@ function httpRequest(method, url, body, success, fail) {
         method: method,
         headers: headers,  // Content-Type 설정하지 않음
         body: body, // FormData 객체 전달
-        // credentials: 'include'
+        credentials: 'include'
     }).then(response => {
         if (response.ok) {
             return success();
@@ -176,7 +176,7 @@ function httpRequest(method, url, body, success, fail) {
                 body: JSON.stringify({
                     refreshToken: getCookie('refresh_token'),
                 }),
-                // credentials: 'include'
+                credentials: 'include'
             })
                 .then(res => res.ok ? res.json() : Promise.reject())
                 .then(result => {
