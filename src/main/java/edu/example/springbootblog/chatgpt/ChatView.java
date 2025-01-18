@@ -11,3 +11,4 @@ public class ChatView {
         return "chat/chatgpt";
     }
 }
+222222
