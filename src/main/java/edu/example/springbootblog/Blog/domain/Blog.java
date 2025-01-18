@@ -1,10 +1,7 @@
 package edu.example.springbootblog.Blog.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -12,7 +9,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name="blog")
 public class Blog {
 
@@ -33,9 +32,11 @@ public class Blog {
         this.content = content;
     }
 
-    public void update(String title, String content) {
+    public void update(String title, String content, LocalDateTime updatedAt) {
         this.title = title;
         this.content = content;
+        this.updatedAt = updatedAt;
+
     }
 
     @CreatedDate // save when Entity Created
@@ -46,5 +47,10 @@ public class Blog {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name="view_count")
+    private Long viewCount= 0L;
+
+    public void isIncrementViewCount()
+    {this.viewCount++;}
 
 }

@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor // add constructor what having final, @Notnull
@@ -41,7 +42,16 @@ public class BlogService {
         Blog blog = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Not Found : " + id));
 
-        blog.update(request.getTitle(), request.getContent());
+        blog.update(request.getTitle(), request.getContent(), LocalDateTime.now());
         return blog;
+    }
+
+    //게시글 조회수 증가
+    public Blog getIncreaseViewCount(Long id) {
+        Blog blog=blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
+        blog.isIncrementViewCount();  // 조회수 증가
+        // 변경된 조회수를 저장
+        return blogRepository.save(blog);
     }
 }

@@ -4,54 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>화석연료 | 방명록 글조회</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <!-- Google Fonts for Improved Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Link to the External CSS File -->
     <link rel="stylesheet" href="/css/blog/blogSee.css">
 </head>
 <body>
 
-<!-- Content Section for Viewing a Blog -->
 <div class="content-section container mt-5">
     <div class="row">
         <div class="col-lg-8 mx-auto">
-            <blog>
+            <div class="blog">
                 <input type="hidden" id="blog-id" th:value="${blog.id}">
 
-                <!-- Blog Header Section -->
+                <!-- Blog Header -->
                 <header class="blog-header mb-4">
                     <h1 class="fw-bolder mb-1" th:text="${blog.title}"></h1>
-                    <div class="text-muted fst-italic mb-2" th:text="|Posted on ${#temporals.format(blog.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
                 </header>
 
-                <!-- Blog Content Section -->
+                <!-- Blog Content -->
                 <section class="mb-5">
                     <p class="fs-5 mb-4" th:text="${blog.content}"></p>
+                    <div class="text-muted">
+                        <span style="margin-left: 15px;">작성일:</span>
+                        <span th:text="${#temporals.format(blog.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+
+                        <span style="margin-left: 15px;">수정일:</span>
+                        <span th:text="${#temporals.format(blog.updatedAt, 'yyyy-MM-dd HH:mm')}"></span>
+
+                        <span style="margin-left: 15px;">조회수:</span>
+                        <span th:text="${blog.viewCount}"></span>
+                    </div>
                 </section>
 
-                <!-- Buttons for Update, Delete, Back, and Send -->
-                <button type="button" id="modify-btn"
-                        th:if="${blog.id != null}"
-                        th:onclick="|location.href='@{/new-blog?id={blogId}(blogId=${blog.id})}'|"
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-end">
+                    <button type="button" id="modify-btn"
+                            th:if="${blog.id != null}"
+                            th:onclick="|location.href='@{/new-blog?id={blogId}(blogId=${blog.id})}'|"
+                            class="btn btn-primary mr-2">수정</button>
 
+                    <button type="button" id="delete-btn"
+                            class="btn btn-danger mr-2"
+                            th:onclick="|location.href='@{/delete-blog?id={blogId}(blogId=${blog.id})}'|">삭제</button>
 
-                        class="btn btn-primary">수정</button>
-
-                <!-- Send Button (Example: Could trigger a form submission or action) -->
-                <button type="button" id="send-btn"
-                        th:onclick="|location.href='@{/}'|"
-                        class="btn btn-primary">뒤로가기</button>
-
-                <button type="button" id="delete-btn" class="btn btn-secondary">삭제</button>
-
-            </blog>
+                    <button type="button" id="back-btn"
+                            class="btn btn-secondary"
+                            th:onclick="|location.href='@{/}'|">뒤로가기</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Script File -->
 <script src="/js/blog.js"></script>
 </body>
 </html>

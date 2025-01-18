@@ -38,6 +38,7 @@ public class BlogViewController {
     @GetMapping("/blogs/{id}")
     public String getBlog(@PathVariable Long id, Model model) {
       Blog blog = blogService.findById(id);
+      blogService.getIncreaseViewCount(id);
       model.addAttribute("blog", new BlogViewResponse(blog));
 
       return "blog/blogSee";
