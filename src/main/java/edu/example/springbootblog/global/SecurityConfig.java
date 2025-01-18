@@ -1,15 +1,19 @@
 package edu.example.springbootblog.global;
 
 
+import edu.example.springbootblog.global.jwt.TokenAuthenticationFilter;
+import edu.example.springbootblog.global.jwt.TokenProvider;
+import edu.example.springbootblog.global.oauth.CustomLogoutHandler;
+import edu.example.springbootblog.global.oauth.OAuth2SuccessHandler;
+import edu.example.springbootblog.global.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import edu.example.springbootblog.global.repository.RefreshTokenRepository;
+import edu.example.springbootblog.global.service.Oauth2UserCustomService;
 import edu.example.springbootblog.user.service.UserDetailService;
 import edu.example.springbootblog.user.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;

@@ -1,7 +1,7 @@
-package edu.example.springbootblog.post.controller;
+package edu.example.springbootblog.user.controller;
 
 
-import edu.example.springbootblog.post.service.MyPageService;
+import edu.example.springbootblog.user.service.MyPageService;
 import edu.example.springbootblog.user.domain.User;
 import lombok.RequiredArgsConstructor;
 
