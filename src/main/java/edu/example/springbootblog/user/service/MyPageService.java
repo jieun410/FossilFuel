@@ -1,4 +1,4 @@
-package edu.example.springbootblog.post.service;
+package edu.example.springbootblog.user.service;
 
 import edu.example.springbootblog.user.domain.User;
 import edu.example.springbootblog.user.repository.UserRepository;
